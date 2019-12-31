@@ -5,10 +5,14 @@ const app= express();
 require('dotenv').config();
 
 
-app.get('/api/places', async(res, req, next) => {
+app.use((re, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Acccess-Control-Allow-Headers', 'Origin,X-request-With, Content-Type, Accept');
+  next();
+});
+app.get('/api/places', async(req, res) => {
     place = await db.collection('places').findOne();
-    console.log(place);
- return place;
+    res.json(place);
 })
 
 mongoose.connect(process.env.DATABASE_URL,

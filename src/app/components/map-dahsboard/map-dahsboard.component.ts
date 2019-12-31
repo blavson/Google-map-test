@@ -1,6 +1,9 @@
+import { of } from 'rxjs';
+import { PlacesServiceService } from './../../services/places-service.service';
 import { Component, OnInit , ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 
 import {} from 'googlemaps';
+import { Place } from 'src/app/models/place';
 
 @Component({
   selector: 'app-map-dahsboard',
@@ -9,8 +12,8 @@ import {} from 'googlemaps';
 })
 export class MapDahsboardComponent implements OnInit , AfterViewInit{
   @ViewChild('mapWrapper', {static: false}) mapElement: ElementRef;
-
-  constructor() { }
+  private places : Place[];
+  constructor(private ps : PlacesServiceService) { }
 
 
   ngAfterViewInit() {   
@@ -18,7 +21,14 @@ export class MapDahsboardComponent implements OnInit , AfterViewInit{
   }
 
 
-  ngOnInit()  {
+  ngOnInit()  {                                                                                                                   
+    this.getPlaces();
+  }
+
+  getPlaces() {
+     this.ps.getPlaces().subscribe(places => {
+      this.places  = places;
+    });
   }
 
   initGMap() {
@@ -34,23 +44,34 @@ export class MapDahsboardComponent implements OnInit , AfterViewInit{
       streetViewControl: false,
       zoomControl : false
     };
+
+    
+
     const map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);    
-    const markerPos = new google.maps.LatLng(41.692232, 44.804472);
-    const marker = new google.maps.Marker({
-      position: markerPos,
-      map: map,
-      title: 'Hello World!',
-      icon : 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
-  });
+    let marker :google.maps.Marker[];
+    
+
+    this.places.forEach( function(place, index) {
+      
+      const markerPos = new google.maps.LatLng(place.position.latitude, place.position.longitude);
+      marker[index] = new  google.maps.Marker({
+          position : markerPos,
+          map: map,
+          title: place.name,
+          icon : place.icon
+    });
+
+    marker[index].addListener('click', function() {
+      infowindow.open(map, marker[index]);
+    });
+  
 
   const infowindow = new google.maps.InfoWindow({
-    content: contentString
+    content: place.description
   });
 
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
 
-  }
+  });
+}
 
 }

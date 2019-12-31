@@ -1,3 +1,4 @@
+import { PlacesServiceService } from './services/places-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +9,7 @@ import { MapDahsboardComponent } from './components/map-dahsboard/map-dahsboard.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlaceListComponent } from './components/place-list/place-list.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,9 +24,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCbdu5ckmNoGn17bK-00enjTj84j_sywvY'
     }),
-    AngularFontAwesomeModule    
+    AngularFontAwesomeModule  ,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [PlacesServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
