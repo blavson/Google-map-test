@@ -1,25 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Place = require('./models/place');
+const cors = require('cors');
 const app= express();
+const connectDB = require('./config/db');
+
 require('dotenv').config();
+app.use(express.json());
+app.use(cors());
+app.use('/api/v1/places', require('./routes/places'));
 
+connectDB();
 
-app.use((re, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Acccess-Control-Allow-Headers', 'Origin,X-request-With, Content-Type, Accept');
-  next();
-});
-app.get('/api/places', async(req, res) => {
-    place = await db.collection('places').findOne();
-    res.json(place);
-})
-
-mongoose.connect(process.env.DATABASE_URL,
- { useNewUrlParser: true ,  useUnifiedTopology: true  } );
-const db = mongoose.connection
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('connected to database'))
+// const db = mongoose.connection;
+// db.on('error', (error) => console.error(error))
+// // db.once('open', () => console.log('connected to database'))
 
 app.listen(3000, () => console.log('server started'));
 

@@ -53,7 +53,7 @@ export class MapDahsboardComponent implements OnInit , AfterViewInit{
 
     this.places.forEach( function(place, index) {
       
-      const markerPos = new google.maps.LatLng(place.position.latitude, place.position.longitude);
+      const markerPos = new google.maps.LatLng(place.location.coordinates);
       marker[index] = new  google.maps.Marker({
           position : markerPos,
           map: map,

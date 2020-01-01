@@ -1,9 +1,16 @@
 export class Place {
   name : string;
   address : string;
-  position : {
-      latitude : number;
-      longitude : number;
+  location: {
+    type: {
+      type: String, 
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
   }
   icon : string;
   rating : number;
