@@ -11,18 +11,18 @@ import { Place } from 'src/app/models/place';
   styleUrls: ['./map-dahsboard.component.css']
 })
 export class MapDahsboardComponent implements OnInit , AfterViewInit{
-  @ViewChild('mapWrapper', {static: false}) mapElement: ElementRef;
   private places : Place[];
+
+  @ViewChild('mapWrapper', {static: false}) mapElement: ElementRef;
   constructor(private ps : PlacesServiceService) { }
 
 
   ngAfterViewInit() {   
+    this.getPlaces();
     this.initGMap();
   }
 
-
   ngOnInit()  {                                                                                                                   
-    this.getPlaces();
   }
 
   getPlaces() {
@@ -53,12 +53,13 @@ export class MapDahsboardComponent implements OnInit , AfterViewInit{
 
     this.places.forEach( function(place, index) {
       
-      const markerPos = new google.maps.LatLng(place.location.coordinates);
+      const markerPos = new google.maps.LatLng(place['data'].location.coordinates[0].latitude, 
+                                               place['data'].location.coordinates[0].longitude);
       marker[index] = new  google.maps.Marker({
           position : markerPos,
           map: map,
-          title: place.name,
-          icon : place.icon
+          title: place['data'].name,
+          icon : place['data'].icon
     });
 
     marker[index].addListener('click', function() {

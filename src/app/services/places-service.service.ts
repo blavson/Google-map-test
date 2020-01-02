@@ -11,7 +11,7 @@ export class PlacesServiceService {
    }
 
 public getPlaces() : Observable<Place[]> {
-  return this.http.get<Place[]>('http://localhost:3000/api/places');
+  return this.http.get<Place[]>('http://localhost:3000/api/v1/places');
 }
 
 }
