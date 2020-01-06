@@ -14,5 +14,6 @@ export class Place {
   }
   icon : string;
   rating : number;
+  title : string;
   description : string;
 }

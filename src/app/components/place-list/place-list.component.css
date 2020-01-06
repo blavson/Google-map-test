@@ -1,3 +1,7 @@
 self {
   background-color : red;
 }
+
+.mySearchBox {
+  margin-top:  70px;
+}
