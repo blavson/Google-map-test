@@ -26,6 +26,7 @@ const placeSchema = new Schema({
   pinIcon: String,
   image: String,
   rating: Number,
+  infoWindow: Buffer,
   description: String,
   createdAt: { type: Date, default: Date.now }
 });

@@ -24,7 +24,6 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
   private infowindow: google.maps.InfoWindow[] = [];
 
   @ViewChild('mapWrapper', { static: false }) mapElement: ElementRef;
-  @ViewChild('mainWindow', { static: false }) mw: ElementRef;
 
   constructor(private ps: PlacesServiceService) { }
 
@@ -190,7 +189,6 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
       streetViewControl: false,
       zoomControl: false
     };
-
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 }

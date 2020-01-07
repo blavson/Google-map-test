@@ -16,5 +16,6 @@ export class Place {
   image: string;
   rating: number;
   title: string;
+  infoWindow: Text;
   description: string;
 }
