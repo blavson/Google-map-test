@@ -1,4 +1,9 @@
-#map { 
+@import "../../../source/css/popupContent.css";
+
+#map {
     width : 48rem;
-    height: 30rem; 
+    height: 30rem;
+    margin-left: 20px;
+    margin-top: 70px;
 }
+
