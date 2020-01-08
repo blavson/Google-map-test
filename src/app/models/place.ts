@@ -3,12 +3,12 @@ export class Place {
   address: string;
   location: {
     type: {
-      type: String,
+      type: string,
       enum: ['Point'],
       required: true
     },
     coordinates: {
-      type: [Number],
+      type: [number],
       required: true
     }
   }
@@ -16,5 +16,7 @@ export class Place {
   image: string;
   rating: number;
   title: string;
+  category: string;
+  tags: string;
   description: string;
 }

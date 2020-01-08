@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./place-list.component.css']
 })
 export class PlaceListComponent implements OnInit {
-
+  placeId: string;
   constructor() { }
 
   ngOnInit() {
