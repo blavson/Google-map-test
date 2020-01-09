@@ -4,7 +4,9 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewInit
+  AfterViewInit,
+  EventEmitter,
+  Output
 } from '@angular/core';
 
 import * as $ from 'jquery';
@@ -24,16 +26,23 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
   private infowindow: google.maps.InfoWindow[] = [];
   private placeId: string;
   @ViewChild('mapWrapper', { static: false }) mapElement: ElementRef;
-
+  @Output() placeIdEmitter = new EventEmitter();
   constructor(private ps: PlacesServiceService) { }
 
   ngAfterViewInit() {
     this.initGMap();
     this.getPlaces(this.map);
-    // this.listen2Listeners();
   }
 
+
   ngOnInit() { }
+
+  emitMarkerId(id: string) {
+    /*    this.placeId = id;
+        this.ps.setPlaceId(id);
+    */
+    this.placeIdEmitter.emit(id);
+  }
 
   getPlaces(map) {
     this.ps.getPlaces().subscribe(places => {
@@ -50,16 +59,17 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
           title: place.name,
           icon: place.icon
         });
-        this.placeId = place._id;
-        this.marker[index].setValues({ type: 'point', placeId: this.placeId });
+        // this.placeId = place._id;
+        this.marker[index].setValues({ type: 'point', placeId: place._id });
         const contentString = place.infoWindow;
-        console.log(contentString);
         const marker = this.marker[index];
         const iw = new google.maps.InfoWindow({
           content: contentString
         });
 
         google.maps.event.addListener(marker, 'click', () => {
+          const someid = marker.get('placeId');
+          this.emitMarkerId(someid);
           iw.open(map, marker);
         });
 

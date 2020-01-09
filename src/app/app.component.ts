@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PlacesServiceService } from './services/places-service.service';
 declare var $: any;
 
 @Component({
@@ -8,6 +9,8 @@ declare var $: any;
 })
 export class AppComponent {
   title = 'gmap-test';
+
+  constructor() { }
 
 }
 

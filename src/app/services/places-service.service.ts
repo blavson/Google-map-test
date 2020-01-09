@@ -7,11 +7,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PlacesServiceService {
+  placeId: string;
   constructor(private http: HttpClient) {
   }
 
   public getPlaces(): Observable<Place[]> {
     return this.http.get<Place[]>('http://localhost:3000/api/v1/places');
   }
+
 
 }
