@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const app= express();
+const app = express();
 const connectDB = require('./config/db');
 
 require('dotenv').config();
 app.use(express.json());
 app.use(cors());
 app.use('/api/v1/places', require('./routes/places'));
+app.use('/api/v1/comments', require('./routes/comments'));
 
 connectDB();
 
