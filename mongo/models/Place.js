@@ -38,7 +38,6 @@ placeSchema.pre('save', async function (next) {
     formattedAddress: loc[0].formattedAddress
   }
   this.neighborhood = loc[0].neighborhood;
-  console.log(loc);
 
 })
 const Place = mongoose.model('Place', placeSchema);

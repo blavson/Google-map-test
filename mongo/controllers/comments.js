@@ -1,19 +1,11 @@
 const Comment = require('../models/Comment');
+const url = require('url');
 
-getCommentsById = async (req, res, next) => {
-  try {
-    const comments = await Comment.find({ placeId: String(req.params.markerId) });
-    return res.status(200).json(req);
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error happened' });
-  }
-}
 
 getComments = async (req, res, next) => {
   try {
-    const comments = await Comment.find({});
+    const placeId = req.query.id;
+    const comments = await Comment.find({ placeId });
     return res.status(200).json(comments);
   }
   catch (error) {
