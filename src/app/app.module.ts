@@ -10,21 +10,25 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlaceListComponent } from './components/place-list/place-list.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule } from '@angular/common/http';
+import { CommentboxComponent } from './components/commentbox/commentbox.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapDahsboardComponent,
     NavbarComponent,
-    PlaceListComponent
+    PlaceListComponent,
+    CommentboxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCbdu5ckmNoGn17bK-00enjTj84j_sywvY'
     }),
-    AngularFontAwesomeModule  ,
+    AngularFontAwesomeModule,
     HttpClientModule
   ],
   providers: [PlacesServiceService],

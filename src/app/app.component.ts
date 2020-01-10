@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlacesServiceService } from './services/places-service.service';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 declare var $: any;
 
 @Component({

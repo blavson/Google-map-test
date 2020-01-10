@@ -1,4 +1,10 @@
-
- .comment{
+ .mycontainer{
   margin-top: 70px;
+}
+
+.card {
+  width: 200px;
+  font-size: 12px;
+  border-width: 3px;
+  border-color: olive;
 }

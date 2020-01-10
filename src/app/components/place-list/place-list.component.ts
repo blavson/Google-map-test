@@ -24,5 +24,8 @@ export class PlaceListComponent implements OnInit {
     })
   }
 
+  onCardClick(event) {
+    console.log('Clicked');
+  }
 
 }
