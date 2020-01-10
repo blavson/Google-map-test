@@ -21,7 +21,6 @@ export class PlaceListComponent implements OnInit {
     this.markerId = id;
     this.cs.getComments(id).subscribe(comments => {
       this.comments = comments;
-      console.log(this.comments);
     })
   }
 

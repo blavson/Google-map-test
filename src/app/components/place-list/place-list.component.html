@@ -1,12 +1,11 @@
-<h3 class="placeID">ID Here {{markerId}} </h3>
 <div *ngIf="comments?.length > 0 ; then commentsBlock else noCommentsBlock"></div>
 
 <ng-template #commentsBlock>
-  <div *ngFor="let c of comments">
-    {{ c.body }}
+  <div class="comment" *ngFor="let c of comments">
+    <h3> {{ c.body }} </h3>
   </div>
 </ng-template>
 
 <ng-template #noCommentsBlock>
-  <h2> No Comments Yet </h2>
+  <h2 class="comment"> No Comments Yet </h2>
 </ng-template>
