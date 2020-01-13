@@ -1,16 +1,17 @@
 
+<div class="container">
+    <div class="insideBlock">
 <div *ngIf="comments?.length > 0 ; then commentsBlock else noCommentsBlock"></div>
-
 <ng-template #commentsBlock>
   <div class="comment" *ngFor="let c of comments">
     <b> {{ c.userName }}  </b>
     <p> {{ c.body }} </p>
-    <u>Rating : {{ c.rating}}</u>
+    Rating : {{ c.rating}}
   </div>
 </ng-template>
-
-
 <ng-template #noCommentsBlock>
   <h2 class="comment"> No Comments Yet </h2>
 </ng-template>
 <h4> {{markerId}} </h4>
+</div>
+</div>
