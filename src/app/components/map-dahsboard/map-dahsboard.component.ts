@@ -71,6 +71,7 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
           const someid = marker.get('placeId');
           this.emitMarkerId(someid);
           iw.open(map, marker);
+         // window.location.href=`/places/${someid}`;
         });
 
         // Event that closes the Info Window with a click on the map
@@ -85,7 +86,7 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
 
   initGMap() {
 
-    const lngLat = new google.maps.LatLng(41.692417, 44.803771);
+    const lngLat = new google.maps.LatLng(41.709157, 44.767054);
 
     const mapOptions: google.maps.MapOptions = {
       center: lngLat,
