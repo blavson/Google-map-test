@@ -4,4 +4,5 @@ export class Comment {
   body: string;
   posted: Date;
   ip: string;
+  rating : number;
 }

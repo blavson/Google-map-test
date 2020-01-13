@@ -11,7 +11,7 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
-  rate: Number,
+  rating: Number,
   ip: String,
   createdAt: { type: Date, default: Date.now }
 });

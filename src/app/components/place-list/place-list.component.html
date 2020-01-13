@@ -3,7 +3,9 @@
 
 <ng-template #commentsBlock>
   <div class="comment" *ngFor="let c of comments">
-    <h3> {{ c.body }} </h3>
+    <b> {{ c.userName }}  </b>
+    <p> {{ c.body }} </p>
+    <u>Rating : {{ c.rating}}</u>
   </div>
 </ng-template>
 
