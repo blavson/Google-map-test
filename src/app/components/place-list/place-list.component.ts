@@ -12,9 +12,11 @@ import { Result } from 'src/app/models/result';
 export class PlaceListComponent implements OnInit {
   markerId: string;
   comments: Comment[];
+  rownum : number;
   constructor(private cs: CommentsService) { }
 
   ngOnInit() {
+      this.rownum = 0;
   }
 
   public receiveId(id: string) {

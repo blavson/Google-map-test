@@ -3,16 +3,8 @@ const url = require('url');
 
 getComments = async (req, res, next) => {
   try {
-<<<<<<< HEAD
-      const placeId = req.query.id;
-      console.log(placeId);
-
-    const comments = await Comment.find({'placeId' : placeId});
-=======
     const placeId = req.query.id;
-    const comments = await Comment.find({ placeId: placeId });
-
->>>>>>> comment-style-box
+    const comments = await Comment.find({ 'placeId': placeId });
     return res.status(200).json(comments);
   }
   catch (error) {
