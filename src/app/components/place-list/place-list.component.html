@@ -1,22 +1,9 @@
 <div class="container">
     <div class="insideBlock">
-    <div class="col-md-5 offset-md-1">
-      <!-- <div *ngIf="comments?.length == 0 ; then noCommentsBlock"></div> -->
-      <div class="row">
-        <div class="comment" *ngFor="let c of comments; index as i" (click)="onCardClick($event);">
-        <div class="col">
-            <div class="card mb-2">
-                <div class="card-header">
-                    <span class="text-left">{{c.userName}} </span> <span class="text-right"> {{c.posted}} </span>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">{{ c.body}}</p>
-                </div>
-                <div class="card-footer bg-transparent">Footer</div>
-           </div>
+        <div class="row">
+            <div class="col-4" *ngFor="let c of comments">
+                <app-commentbox [comment]="c"></app-commentbox>
+            </div>
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
+</div>
 </div>

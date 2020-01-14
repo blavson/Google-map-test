@@ -12,6 +12,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentboxComponent } from './components/commentbox/commentbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MapDahsboardComponent,
     NavbarComponent,
     PlaceListComponent,
-    CommentboxComponent
+    CommentboxComponent,
+    CommentsNavbarComponent
   ],
   imports: [
     BrowserModule,
