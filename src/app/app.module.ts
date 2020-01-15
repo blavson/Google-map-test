@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentboxComponent } from './components/commentbox/commentbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CommentsNavbarComponent } from './components/comments-navbar/comments-n
       apiKey: 'AIzaSyCbdu5ckmNoGn17bK-00enjTj84j_sywvY'
     }),
     AngularFontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [PlacesServiceService],
   bootstrap: [AppComponent]

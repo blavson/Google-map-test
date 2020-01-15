@@ -1,9 +1,25 @@
 <div class="container">
-    <div class="insideBlock">
-        <div class="row">
-            <div class="col-4" *ngFor="let c of comments">
+    <div *ngIf="result.count > 0 then commentsBlock  ; else noCommentsBlock">  </div>
+</div>
+
+<ng-template #commentsBlock>
+    <h2>Total Comments {{result.count}} </h2>
+    <div class="row">
+            <div class="col-4" *ngFor="let c of result.comments">
                 <app-commentbox [comment]="c"></app-commentbox>
             </div>
-        </div>
-</div>
-</div>
+    </div>
+
+<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+</ng-template>
+
+
+<ng-template #noCommentsBlock>
+    <ngb-rating [(rate)]="currentRate">
+      <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+      </ng-template>
+    </ngb-rating>
+    <hr>
+    <pre>Rate: <b>{{currentRate}}</b></pre>
+</ng-template>

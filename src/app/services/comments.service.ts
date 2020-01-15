@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comment } from '../models/comment';
+import { Result } from '../models/result';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ export class CommentsService {
 
   constructor(private http: HttpClient) { }
 
-  getComments(placeId: string): Observable<Comment[]> {
+  getComments(placeId: string): Observable<Result> {
     const url = '?id=' + placeId;
-    return this.http.get<Comment[]>('http://localhost:3000/api/v1/comments' + url);
+    return this.http.get<Result>('http://localhost:3000/api/v1/comments' + url);
 
   }
 

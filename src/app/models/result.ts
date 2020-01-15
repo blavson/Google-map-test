@@ -1,5 +1,7 @@
+import { Comment } from 'src/app/models/comment';
+
 export class Result {
-  status: boolean;
+  success: boolean;
   count: number;
-  data: Array<any>;
+  comments : Comment[];
 }
