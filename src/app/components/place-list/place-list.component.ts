@@ -4,7 +4,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment';
 import { Result } from 'src/app/models/result';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import {StarRateComponent} from 'src/app/components/star-rate/star-rate.component';
 
 @Component({
   selector: 'app-place-list',
@@ -19,7 +19,7 @@ export class PlaceListComponent implements OnInit {
   page : number;
   pageSize : number;
   collectionSize : number;
-  
+
   constructor(private cs: CommentsService) { }
 
   ngOnInit() {

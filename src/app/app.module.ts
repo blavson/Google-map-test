@@ -14,6 +14,7 @@ import { CommentboxComponent } from './components/commentbox/commentbox.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StarRateComponent } from './components/star-rate/star-rate.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     PlaceListComponent,
     CommentboxComponent,
-    CommentsNavbarComponent
+    CommentsNavbarComponent,
+    StarRateComponent
   ],
   imports: [
     BrowserModule,
