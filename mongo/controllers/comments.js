@@ -4,9 +4,9 @@ const url = require('url');
 getComments = async (req, res, next) => {
   try {
     const placeId = req.query.id;
-    const pageNum = parseInt(req.query.pagenum);
+    const page = parseInt(req.query.page);
 
-    if (pageNum < 0) {
+    if (page < 0) {
         return res.status(500).json({
                                     success :false,
                                     count  :  0,
@@ -14,13 +14,14 @@ getComments = async (req, res, next) => {
                                 });
     }
     const size = 9;
-    const skip=size*(pageNum -1);
+    const skip=size*(page -1);
     const total = await Comment.find({ 'placeId': placeId });
     let query = {};
     query.skip = skip;
     //query.skip=20;
     query.limit = size;
     const comments = await Comment.find({ 'placeId': placeId },{}, query);
+    console.log(skip,page);
     return res.status(200).json({
                                 success : true,
                                 count   :  total.length,
@@ -32,6 +33,7 @@ getComments = async (req, res, next) => {
     res.status(500).json({ error: 'Error happened' });
   }
 }
+
 
 
 addComment = async (req, res, next) => {
