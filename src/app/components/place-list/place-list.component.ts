@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment';
@@ -14,33 +14,35 @@ import {StarRateComponent} from 'src/app/components/star-rate/star-rate.componen
 export class PlaceListComponent implements OnInit {
   markerId: string;
   result : Result ;
-  fill : number;
-  currentRate : number;
   page : number;
-  pageSize : number;
   collectionSize : number;
+  pageSize : number;
 
   constructor(private cs: CommentsService) { }
 
   ngOnInit() {
       this.result = new Result();
-      this.fill = 5;
-      this.currentRate = 2;
-      this.page =1;
-      this.pageSize =9;
-      this.collectionSize = this.result.count;
   }
 
-  public receiveId(id: string) {
-    this.markerId = id;
-    this.cs.getComments(id).subscribe(res => {
+  public receiveId(event) {
+      console.log(event);
+    this.markerId = event.id;
+    this.page = event.page;
+    this.cs.getComments(event.id,event.page).subscribe(res => {
         this.result = res ;
-        console.log(this.result);
+        this.collectionSize = res.count;
+        console.log("Col size " +  this.collectionSize);
     })
   }
 
-  onPagingClick(event) {
-    console.log(event.target);
+  onPageChange(event) {
+     this.page = event;
+     console.log("event = " + event);
+    this.cs.getComments(this.markerId, this.page).subscribe(res => {
+        this.result = res;
+    })
+
+//    console.log(this.markerId, this.page);
   }
 
 }

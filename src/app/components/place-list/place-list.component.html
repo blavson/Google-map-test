@@ -9,10 +9,11 @@
                 <app-commentbox [comment]="c"></app-commentbox>
             </div>
     </div>
-
-<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+    <br>
+    <h1>Col Size : {{collectionSize}}</h1>
+    <h1>page num : {{ page}} </h1>
+<app-pagination [collectionSize]="collectionSize" [pageSize]="9" [page]="page" (pageNumba)="onPageChange($event)" ></app-pagination>
 </ng-template>
-
 
 <ng-template #noCommentsBlock>
 <app-star-rate></app-star-rate>

@@ -15,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StarRateComponent } from './components/star-rate/star-rate.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { StarRateComponent } from './components/star-rate/star-rate.component';
     PlaceListComponent,
     CommentboxComponent,
     CommentsNavbarComponent,
-    StarRateComponent
+    StarRateComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

@@ -11,10 +11,10 @@ export class CommentsService {
 
   constructor(private http: HttpClient) { }
 
-  getComments(placeId: string): Observable<Result> {
-    const url = '?id=' + placeId;
+  getComments(placeId: string, page : number): Observable<Result> {
+    const url = '?id=' + placeId + '&page=' + page;
     return this.http.get<Result>('http://localhost:3000/api/v1/comments' + url);
-
   }
+
 
 }

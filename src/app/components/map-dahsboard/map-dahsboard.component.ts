@@ -38,10 +38,8 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   emitMarkerId(id: string) {
-    /*    this.placeId = id;
-        this.ps.setPlaceId(id);
-    */
-    this.placeIdEmitter.emit(id);
+    const page =1;
+    this.placeIdEmitter.emit({id ,page});
   }
 
   getPlaces(map) {
