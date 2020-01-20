@@ -16,6 +16,7 @@ import { CommentsNavbarComponent } from './components/comments-navbar/comments-n
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StarRateComponent } from './components/star-rate/star-rate.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { MergeMapAndCommentsComponent } from './components/merge-map-and-comments/merge-map-and-comments.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     CommentboxComponent,
     CommentsNavbarComponent,
     StarRateComponent,
-    PaginationComponent
+    PaginationComponent,
+    MergeMapAndCommentsComponent
   ],
   imports: [
     BrowserModule,
