@@ -1,0 +1,8 @@
+<div class="row">
+   <div class="col-md-6">
+      <app-map-dahsboard (placeIdEmitter)="apl.receiveId($event, 1)">></app-map-dahsboard>
+   </div>
+   <div class="col-md-6">
+    <app-place-list #apl></app-place-list>
+    </div>
+</div>
