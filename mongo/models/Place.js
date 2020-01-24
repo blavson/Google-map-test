@@ -11,7 +11,6 @@ const placeSchema = new Schema({
     type: String,
     required: true
   },
-  neighborhood: String,
   location: {
     type: {
       type: String,
@@ -23,10 +22,8 @@ const placeSchema = new Schema({
     },
     formattedAddress: String,
   },
-  pinIcon: String,
-  image: String,
-  rating: Number,
   description: String,
+  infoWindow: String,
   createdAt: { type: Date, default: Date.now }
 });
 

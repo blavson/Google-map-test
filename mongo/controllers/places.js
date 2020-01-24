@@ -3,7 +3,7 @@ const Place = require('../models/Place');
 getPlaces =  async (req, res, next)=> {
  try {
    const places = await Place.find();
-  return res.status(200).json({
+   return res.status(200).json({
       success : true,
       count : places.length,
       data : places
@@ -18,12 +18,13 @@ getPlaces =  async (req, res, next)=> {
 
 addPlace =  async (req, res, next)=> {
   try {
-       const place =  await Place.create(req.body);
-       return res.status(201).send(place);
+       //const place =  await Place.create(req.body);
+       return res.status(201).send(req.body);
+      console.log(req.body);
   } catch (error) {
     console.error(error);
     res.status(500).json({error : 'Error happened'});
   }
  }
- 
+
 module.exports =  {getPlaces , addPlace }

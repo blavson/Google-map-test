@@ -1,7 +1,7 @@
 export class Place {
   name: string;
   address: string;
-  location: {
+  location?: {
     type: {
       type: string,
       enum: ['Point'],
@@ -12,11 +12,9 @@ export class Place {
       required: true
     }
   }
-  pinIcon: string;
-  image: string;
-  rating: number;
-  title: string;
-  category: string;
-  tags: string;
+  //icon: string;
+  //image: string;
+ // rating: number;
   description: string;
+  infoWindow : string;
 }
