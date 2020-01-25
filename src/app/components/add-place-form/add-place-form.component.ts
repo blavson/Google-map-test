@@ -14,18 +14,14 @@ export class AddPlaceFormComponent implements OnInit {
      name : '',
      address :'',
      description : '',
-     infoWindow : ''
+     infoWindow : '',
+     icon : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
 }
 
   constructor(private ps : PlacesServiceService) {
 }
 
   ngOnInit() {
-     this.place.name='Subway';
-     this.place.address = 'Chavchavadze avenue 19';
-     this.place.description ='Subway is an American privately-held restaurant franchise that primarily sells submarine sandwiches and salads. It is one of the fastest-growing franchises in the world and, as of October 2019, had 41,512 locations in more than 100 countries.';
-//     this.place.icon =  "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-     this.place.infoWindow = this.generateInfoWindow();
   }
 
   generateInfoWindow() {
@@ -40,6 +36,7 @@ export class AddPlaceFormComponent implements OnInit {
  }
 
   onSubmit(form: NgForm) {
+     this.place.infoWindow = this.generateInfoWindow();
      this.ps.addPlace(this.place);
      console.log(this.place);
  }

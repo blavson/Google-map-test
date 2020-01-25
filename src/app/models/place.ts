@@ -12,9 +12,9 @@ export class Place {
       required: true
     }
   }
-  //icon: string;
-  //image: string;
- // rating: number;
+  icon?: string;
+  image?: string;
+  rating?: number;
   description: string;
   infoWindow : string;
 }

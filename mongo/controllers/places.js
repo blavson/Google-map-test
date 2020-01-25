@@ -18,9 +18,8 @@ getPlaces =  async (req, res, next)=> {
 
 addPlace =  async (req, res, next)=> {
   try {
-       //const place =  await Place.create(req.body);
-       return res.status(201).send(req.body);
-      console.log(req.body);
+       const place =  await Place.create(req.body);
+       return res.status(201).send(place);
   } catch (error) {
     console.error(error);
     res.status(500).json({error : 'Error happened'});

@@ -15,12 +15,12 @@ export class PlacesServiceService {
     return this.http.get<Place[]>('http://localhost:3000/api/v1/places');
   }
 
-  public addPlace(place : Place) : Observable<Place> {
+  public  addPlace(place : Place) {
      const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
   })
 };
-   return this.http.post<Place>('http://localhost:3000/api/v1/places', place, httpOptions);
- }
+    this.http.post<Place>('http://localhost:3000/api/v1/places', place, httpOptions).subscribe(result=>result);
+  }
 }
