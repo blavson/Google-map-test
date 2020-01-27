@@ -24,6 +24,8 @@ const placeSchema = new Schema({
   },
   description: String,
   infoWindow: String,
+  icon : String,
+  rating : Number,
   createdAt: { type: Date, default: Date.now }
 });
 
