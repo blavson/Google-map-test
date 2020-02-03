@@ -1,21 +1,20 @@
 export class Place {
   name: string;
   address: string;
-  location: {
+  location?: {
     type: {
-      type: String,
+      type: string,
       enum: ['Point'],
       required: true
     },
     coordinates: {
-      type: [Number],
+      type: [number],
       required: true
     }
   }
-  pinIcon: string;
-  image: string;
+  icon: string;
+  image?: string;
   rating: number;
-  title: string;
-  infoWindow: Text;
   description: string;
+  infoWindow: string;
 }

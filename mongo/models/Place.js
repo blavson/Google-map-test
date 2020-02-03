@@ -11,7 +11,6 @@ const placeSchema = new Schema({
     type: String,
     required: true
   },
-  neighborhood: String,
   location: {
     type: {
       type: String,
@@ -23,11 +22,10 @@ const placeSchema = new Schema({
     },
     formattedAddress: String,
   },
-  pinIcon: String,
-  image: String,
-  rating: Number,
-  infoWindow: Buffer,
   description: String,
+  infoWindow: String,
+  icon: String,
+  rating: Number,
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -39,7 +37,6 @@ placeSchema.pre('save', async function (next) {
     formattedAddress: loc[0].formattedAddress
   }
   this.neighborhood = loc[0].neighborhood;
-  console.log(loc);
 
 })
 const Place = mongoose.model('Place', placeSchema);

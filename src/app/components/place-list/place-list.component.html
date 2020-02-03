@@ -1,6 +1,20 @@
-<div class="mySearchBox input-group mb-3">
-  <div class="input-group-prepend">
-    <i class="fa fa-search" style="font-size:36px; color:orangered"></i>
-    <input type="text" class="form-control" placeholder="Search">
-  </div>
+<div class="container">
+    <div *ngIf="result.count > 0 then commentsBlock  ; else noCommentsBlock">  </div>
 </div>
+
+<ng-template #commentsBlock>
+    <h2>Total Comments {{result.count}} </h2>
+    <div class="row">
+            <div class="col-4" *ngFor="let c of result.comments">
+                <app-commentbox [comment]="c"></app-commentbox>
+            </div>
+    </div>
+    <br>
+    <h1>Col Size : {{collectionSize}}</h1>
+    <h1>page num : {{ page}} </h1>
+<app-pagination [collectionSize]="collectionSize" [pageSize]="9" [page]="page" (pageNumba)="onPageChange($event)" ></app-pagination>
+</ng-template>
+
+<ng-template #noCommentsBlock>
+<app-star-rate></app-star-rate>
+</ng-template>

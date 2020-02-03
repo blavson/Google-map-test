@@ -1,0 +1,13 @@
+.card {
+  width: 280px;
+  height: 140px;
+  font-size: 12px;
+  border-width: 2px;
+  border-color: #e8e8e8;
+  float : flex;
+
+}
+
+.headerbgcolor {
+  background-color: #98ad3b;
+}
