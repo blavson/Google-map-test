@@ -1,3 +1,7 @@
 #labelPlaceName {
    margin-top : 55px;
 }
+
+input[type="file"] {
+   visibility : hidden;
+}
