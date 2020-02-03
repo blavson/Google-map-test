@@ -1,4 +1,4 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 
 @Component({
@@ -8,12 +8,12 @@ import { Comment } from 'src/app/models/comment';
 })
 
 export class CommentboxComponent implements OnInit {
-@Input() comment:Comment;
-numbers : any = [];
+  @Input() comment: Comment;
+  numbers: any = [];
   constructor() { }
 
   ngOnInit() {
-      this.numbers = Array(this.comment.rating).fill(1);
+    this.numbers = Array(this.comment.rating).fill(1);
   }
 
 }
