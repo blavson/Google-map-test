@@ -1,17 +1,16 @@
 <div class="container">
-<form  #placeForm="ngForm" (ngSubmit)="onSubmit(placeForm)">
+<form [formGroup]="form" (submit)="onSubmit()">
   <div class="form-group">
     <label for="placeName" id="labelPlaceName" >Place Name</label>
     <input  type="text"
             class="form-control"
             aria-describedby="place name"
             placeholder="Enter place name"
-            value="misha"
-            [(ngModel)]="place.name" name="placeNameElement" #placeNameElement="ngModel"
+            formControlName="name"
             required
-            [ngClass]="{'is-invalid' : placeNameElement.errors && placeNameElement.touched}"
+            
             >
-   <div class="invalid-feedback">  Place name is required </div>
+   <div *ngIf="form.get('name').invalid" class="invalid-feedback">  Place name is required </div>
   </div>
   <div class="form-group">
     <label for="address">Address</label>
@@ -19,32 +18,26 @@
            class="form-control"
            aria-describedby="address"
            placeholder="Street or avenue name, number"
-           [(ngModel)]="place.address" name="placeAddress" #placeAddress="ngModel"
+           formControlName="address"
            required
-           [ngClass]="{'is-invalid' : placeAddress.errors && placeAddress.touched}"
            >
-  <div class="invalid-feedback">Place's address is required </div>
+  <div *ngIf="form.get('address').invalid" class="invalid-feedback">Place's address is required </div>
   </div>
   <div class="form-group">
     <label for="description">Description</label>
      <textarea
             class="form-control"
             id="placeDescription"
-            [(ngModel)]="place.description" name="placeDescription"  #placeDescription="ngModel"
+            formControlName="description"
             rows="3"></textarea>
   </div>
 
 <div class="form-group">
-  <label for="placeImage">Image</label>
-  <input type="file"
-        class="form-control"
-        id="placeImage"
-        aria-describedby=""
-        accept="image/x-png,image/gif,image/jpeg"
-        >
+  <button type="button" class="btn btn-secondary btn-sm" (click)="fileUploader.click()"> Pick Image</button>
+  <input type="file" #fileUploader accept="image/x-png,image/gif,image/jpeg" (change)="onFileChanged($event)" >
 </div>
 <div class="form-group">
-  <button [disabled]="!placeForm.form.valid" type="submit" class="form-control btn btn-primary">Submit</button>
+  <button  type="submit" [disabled]="!form.valid" class="form-control btn btn-light">Submit</button>
  </div>
 </form>
 </div>

@@ -1,7 +1,7 @@
 import { PlacesServiceService } from './services/places-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
@@ -42,7 +42,7 @@ import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form
     AngularFontAwesomeModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [PlacesServiceService],
   bootstrap: [AppComponent]
