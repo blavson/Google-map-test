@@ -1,10 +1,10 @@
-    <div class="card rounded mb-2">
-      <div class="card-header headerbgcolor">
-        <span>{{comment.userName}}</span> <span>{{comment.createdAt}} </span>
-      </div>
-      <div class="card-text p-1"> {{ comment.body}}
-        <div class="rating">
-          <i *ngFor="let star of numbers" class="fa fa-star" aria-hidden="true"></i>
-        </div>
-      </div>
+<div class="card rounded mb-2">
+  <div class="card-header headerbgcolor">
+    <span>{{comment.userName}}</span> <span></span>
+  </div>
+  <div class="card-text p-1"> {{ comment.body}}
+    <div class="rating">
+      <i *ngFor="let star of numbers" class="fa fa-star" aria-hidden="true"></i>
     </div>
+  </div>
+</div>

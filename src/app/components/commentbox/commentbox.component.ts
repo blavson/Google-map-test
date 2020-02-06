@@ -13,7 +13,7 @@ export class CommentboxComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.numbers = Array(this.comment.rating).fill(1);
+    //this.numbers = Array(this.comment.rating).fill(1);
   }
 
 }
