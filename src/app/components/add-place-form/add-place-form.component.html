@@ -1,43 +1,36 @@
 <div class="container">
-<form [formGroup]="form" (submit)="onSubmit()">
-  <div class="form-group">
-    <label for="placeName" id="labelPlaceName" >Place Name</label>
-    <input  type="text"
-            class="form-control"
-            aria-describedby="place name"
-            placeholder="Enter place name"
-            formControlName="name"
-            required
-            
-            >
-   <div *ngIf="form.get('name').invalid" class="invalid-feedback">  Place name is required </div>
-  </div>
-  <div class="form-group">
-    <label for="address">Address</label>
-    <input type="text"
-           class="form-control"
-           aria-describedby="address"
-           placeholder="Street or avenue name, number"
-           formControlName="address"
-           required
-           >
-  <div *ngIf="form.get('address').invalid" class="invalid-feedback">Place's address is required </div>
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-     <textarea
-            class="form-control"
-            id="placeDescription"
-            formControlName="description"
-            rows="3"></textarea>
-  </div>
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-group">
+      <label for="placeName" id="labelPlaceName">Place Name</label>
+      <input type="text" class="form-control" aria-describedby="place name" placeholder="Enter place name"
+        formControlName="name" required>
+      <div *ngIf="form.get('name').invalid" class="invalid-feedback"> Place name is required </div>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" aria-describedby="address" placeholder="Street or avenue name, number"
+        formControlName="address" required>
+      <div *ngIf="form.get('address').invalid" class="invalid-feedback">Place's address is required </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="placeDescription" formControlName="description" rows="3"></textarea>
+    </div>
 
-<div class="form-group">
-  <button type="button" class="btn btn-secondary btn-sm" (click)="fileUploader.click()"> Pick Image</button>
-  <input type="file" #fileUploader accept="image/x-png,image/gif,image/jpeg" (change)="onFileChanged($event)" >
-</div>
-<div class="form-group">
-  <button  type="submit" [disabled]="!form.valid" class="form-control btn btn-light">Submit</button>
- </div>
-</form>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-3">
+          <button type="button" class="btn btn-secondary btn-sm" (click)="fileUploader.click()"> Pick Image</button>
+          <input type="file" #fileUploader accept="image/x-png,image/gif,image/jpeg" (change)="onFileChanged($event)">
+        </div>
+        <div class="col-md-6">
+          <div class="image_details"></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" [disabled]="!form.valid" class="form-control btn btn-light">Submit</button>
+    </div>
+  </form>
 </div>

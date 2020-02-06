@@ -57,8 +57,9 @@ export class AddPlaceFormComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
-    console.log(file);
-    console.log(this.form);
+    const details = document.querySelector('.image_details');
+    const img = this.form.get('image');
+    details.innerHTML = `<small>Name : ${img.value.name}, Size : ${img.value.size}, Type : ${img.value.type}</small>`;
   }
 
 
