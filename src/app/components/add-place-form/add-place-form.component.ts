@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Place } from 'src/app/models/place';
 import { PlacesServiceService } from 'src/app/services/places-service.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-place-form',
@@ -17,17 +16,21 @@ export class AddPlaceFormComponent implements OnInit {
     description: '',
     infoWindow: '',
     rating: 0,
-    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
   }
+
+  imagePreview : string;
 
   constructor(private ps: PlacesServiceService) {
   }
 
   ngOnInit() {
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-      address: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-      description: new FormControl(null, [Validators.required]),
+      name: new FormControl(null,  {validators : 
+                                    [Validators.required, Validators.minLength(2)]}
+                                    ),
+      address: new FormControl(null, {validators : [Validators.required, Validators.minLength(2)]}),
+      description: new FormControl(null, {validators : [Validators.required]}),
       image: new FormControl(null, [])
     });
   }
@@ -57,10 +60,29 @@ export class AddPlaceFormComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
-    const details = document.querySelector('.image_details');
-    const img = this.form.get('image');
-    details.innerHTML = `<small>Name : ${img.value.name}, Size : ${img.value.size}, Type : ${img.value.type}</small>`;
+    this.addImageDetails(file);
   }
 
 
+  addImageDetails(f : File) {
+    const details = document.querySelector('.image_preview');
+    const img = this.form.get('image');
+    const reader = new FileReader();
+    reader.onload= () => {
+      this.imagePreview = reader.result as string;
+    }
+    reader.readAsDataURL(f);
+    console.log(this.imagePreview);
+    let html = ` <div class="card" style="width: 18rem;">
+             <img class="card-img-top" [src]="${img.value.name}" [alt]="title">
+    <div class="card-body">
+      <h5 class="card-title">${img.value.name}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Size : ${img.value.size}</li>
+      <li class="list-group-item">Type : ${img.value.type}</li>
+    </ul>
+  </div>`;
+  details.innerHTML = html;
+  }
 }
