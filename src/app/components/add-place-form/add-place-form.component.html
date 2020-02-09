@@ -25,8 +25,17 @@
           <input type="file" #fileUploader accept="image/x-png,image/gif,image/jpeg" (change)="onFileChanged($event)">
         </div>
         <div class="col-md-6">
-          <div class="image_preview">
-
+          <div class="image_preview" *ngIf="imagePreview" >
+             <div class="card" style="width: 18rem;">
+               <img class="card-img-top" [src]="imagePreview" [alt]="title">
+               <div class="card-body">
+                 <h5 class="card-title"> {{title}}</h5>
+               </div>
+               <ul class="list-group list-group-flush">
+                 <li class="list-group-item">Size : {{this.form.get('image').size}}</li>
+                 <li class="list-group-item">Type : {{this.form.get('image').type}}</li>
+               </ul>
+          </div>
         </div>
         </div>
       </div>

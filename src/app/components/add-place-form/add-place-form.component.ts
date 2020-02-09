@@ -1,5 +1,6 @@
+import { Observable, Observer } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Place } from 'src/app/models/place';
 import { PlacesServiceService } from 'src/app/services/places-service.service';
 
@@ -21,6 +22,7 @@ export class AddPlaceFormComponent implements OnInit {
 
   imagePreview : string;
 
+
   constructor(private ps: PlacesServiceService) {
   }
 
@@ -31,7 +33,10 @@ export class AddPlaceFormComponent implements OnInit {
                                     ),
       address: new FormControl(null, {validators : [Validators.required, Validators.minLength(2)]}),
       description: new FormControl(null, {validators : [Validators.required]}),
-      image: new FormControl(null, [])
+      image: new FormControl(null, {
+                            validators : [Validators.required],
+                            asyncValidators : [ this.mimeTypeValidator]
+                          })
     });
   }
 
@@ -66,23 +71,38 @@ export class AddPlaceFormComponent implements OnInit {
 
   addImageDetails(f : File) {
     const details = document.querySelector('.image_preview');
-    const img = this.form.get('image');
+    //this.img = this.form.get('image');
     const reader = new FileReader();
     reader.onload= () => {
       this.imagePreview = reader.result as string;
     }
     reader.readAsDataURL(f);
-    console.log(this.imagePreview);
-    let html = ` <div class="card" style="width: 18rem;">
-             <img class="card-img-top" [src]="${img.value.name}" [alt]="title">
-    <div class="card-body">
-      <h5 class="card-title">${img.value.name}</h5>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Size : ${img.value.size}</li>
-      <li class="list-group-item">Type : ${img.value.type}</li>
-    </ul>
-  </div>`;
-  details.innerHTML = html;
   }
+
+  mimeTypeValidator = ( (control :  AbstractControl) : Observable < {[key : string] : any} > | Promise < {[key : string] : any} >=> {
+    const file = control.value as File;
+    const freader = new FileReader();
+    let isValid = false;
+    const frObs =  Observable.create( (observer : Observer < {[key : string] : any} >) => {
+      freader.addEventListener("loadend", () => {
+        const u8 = new Uint8Array(freader.result as ArrayBuffer).subarray(0,2);
+        let someFormat='';
+          for (let index = 0; index < u8.length; index++) {
+            someFormat  += u8[index].toString(16);
+          }
+          if (someFormat === "ffd8" || someFormat === "8950")
+            isValid = true;          
+      if (isValid)
+      observer.next({status : true });
+    else 
+      observer.error({ status : false, 
+                       errorMsg : "Wrong file format" });
+    observer.complete();   
+
+    });
+  });
+    freader.readAsArrayBuffer(file); 
+
+    return frObs;
+  }); 
 }
