@@ -1,7 +1,8 @@
 const express = require('express');
-const { getPlaces, addPlace, imgMiddleWare } = require('../controllers/places');
+const { getPlaces, addPlace, setImageStorage } = require('../controllers/places');
 router = express.Router();
 
-router.route('/').get(getPlaces).post(imgMiddleWare, addPlace);
+
+router.route('/').get(getPlaces).post(setImageStorage).post(addPlace);
 
 module.exports = router
