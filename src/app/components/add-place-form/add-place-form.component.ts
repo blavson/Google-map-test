@@ -11,48 +11,37 @@ import { PlacesServiceService } from 'src/app/services/places-service.service';
 })
 export class AddPlaceFormComponent implements OnInit {
   form: FormGroup;
-  place: Place = {
-    name: '',
-    address: '',
-    description: '',
-    infoWindow: '',
-    image: '',
-    rating: 0,
-    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-  };
-
+  private place : Place;
   imagePreview: string;
 
   constructor(private ps: PlacesServiceService) { }
 
-
   ngOnInit() {
+     this. place = new Place();
+     this. place.name='rusta1';
+     this.place.address = 'rustaveli ave 2';
+     this.place.description= 'Just a rustaveli ave 2 description';
+     this.place.infoWindow = '';
+     this.place.rating = 0;
+     this.place.icon= 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+     this.place.image = null;
+
+      /*({
+      name: 'rusta1',
+      address: 'Rustaveli ave 1',
+      description: 'Just a rustaveli ave 1 description',
+      infoWindow: '',
+      rating: 0,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+   });
+*/
     this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators:
-          [Validators.required]
-      }),
-      address: new FormControl(null, { validators: [Validators.required] }),
-      description: new FormControl(null, { validators: [Validators.required] }),
-      image: new FormControl(null, {
-        validators: [Validators.required],
-        asyncValidators: [this.mimeTypeValidator]
-      })
+      name: new FormControl(null, { validators : [Validators.required] }),
+      address: new FormControl(null, { validators : [Validators.required] }),
+      description: new FormControl(this.place.description),
+      image: new FormControl(null, { validators : [Validators.required], asyncValidators: [this.mimeTypeValidator] })
     });
   }
-
-  get Name(): FormControl {
-    return this.form.get('name') as FormControl;
-  }
-
-  get Address(): FormControl {
-    return this.form.get('address') as FormControl;
-  }
-
-  get Image(): FormControl {
-    return this.form.get('image') as FormControl;
-  }
-
 
   generateInfoWindow() {
     let infoWindow: string = '';
@@ -67,14 +56,13 @@ export class AddPlaceFormComponent implements OnInit {
 
   onSubmit() {
     this.place.infoWindow = this.generateInfoWindow();
-    this.form.setValue({
-      name: this.place.name,
-      address: this.place.address,
-      description: this.place.description,
-      image: this.place.image
-    });
-    this.ps.addPlace(this.place);
+    this.place.name = this.form.get('name').value;
+    this.place.address = this.form.get('address').value;
+    this.place.description = this.form.get('description').value;
+    this.place.image = this.form.get('image').value.name;
 
+    const tmpFile : File = this.form.get('image').value;
+    this.ps.addPlace(this.place, tmpFile);
     this.form.reset();
   }
 
@@ -82,8 +70,9 @@ export class AddPlaceFormComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.place.image = file.name;
     this.form.patchValue({ image: file });
-    this.Image.updateValueAndValidity();
-    this.addImageDetails(file);
+    this.form.get('image').updateValueAndValidity();
+    //console.log(file,   console.log(this.form));
+   // this.addImageDetails(file);
   }
 
 
@@ -97,11 +86,12 @@ export class AddPlaceFormComponent implements OnInit {
   }
 
   mimeTypeValidator = (control: AbstractControl): Observable<{ [key: string]: any }> | Promise<{ [key: string]: any }> => {
-    console.log(control);
-    const file = control.value as File;
+    const localFile = control.value as File;
+    console.log('asyncValidator = ' + localFile);
     const freader = new FileReader();
     let isValid = false;
     const frObs = new Observable((observer: Observer<{ [key: string]: any }>) => {
+
       freader.addEventListener('loadend', () => {
         const u8 = new Uint8Array(freader.result as ArrayBuffer).subarray(0, 2);
         let someFormat = '';
@@ -122,9 +112,8 @@ export class AddPlaceFormComponent implements OnInit {
         }
         observer.complete();
       });
+         freader.readAsArrayBuffer(localFile);
     });
-    console.log(file);
-    freader.readAsArrayBuffer(file);
     return frObs;
   }
 }

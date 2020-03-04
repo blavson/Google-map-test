@@ -6,24 +6,37 @@ const MIME_TYPE_MAP = {
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
-
-setImageStorage =  (req, res, next) => {
+/*
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      if (empty(MIME_TYPE_MAP[file.mimetype]))
-        new Error("Invalid mime type");
-      else
-         cb(null, 'mongo/images/')
+      const isValid = MIME_TYPE_MAP[file.mimetype];
+      let error = new Error("Invalid File Type");
+      if (isValid) {
+         error = null;
+      }
+      cb(error, '/tmp/gmap001');
     },
     filename: (req, file, cb) => {
-      const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
+      const name = file.originalname.toLowerCase().split(' ').join('-');
       const ext = MIME_TYPE_MAP[file.mimetype];
-       cb(null, name + '-' + Date.now() + '.' + ext);
+      const fname = name + '-' + Date.now() + '.' + ext;
+      console.log(fname);
+       cb(null, fname);
     }
   });
-  console.log('setImageStorage');
-};
 
+*/
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/tmp/my-uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+const upload = multer({ storage : storage });
 
 getPlaces = async (req, res, next) => {
   try {
@@ -33,22 +46,24 @@ getPlaces = async (req, res, next) => {
       count: places.length,
       data: places
     })
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error happened' });
   }
 }
 
-addPlace = async (req, res, next) => {
+addPlace = (upload.single('image') ,async (req, res, next) => {
   try {
     const place = await Place.create(req.body);
     return res.status(201).send(place);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error happened' });
+    res.status(500).json({ error: 'Can\'t Add Place' });
   }
-  console.log("AddPlace");
-}
+});
 
-module.exports = { getPlaces, addPlace, setImageStorage }
+
+// addPlace =  async(req, res, next) => {
+//    console.log(req.body);
+// }
+
+module.exports = { getPlaces, addPlace  }

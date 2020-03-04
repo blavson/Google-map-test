@@ -3,18 +3,18 @@
     <div class="form-group">
       <label for="placeName" id="labelPlaceName">Place Name</label>
       <input type="text" class="form-control" aria-describedby="place name" placeholder="Enter place name"
-        formControlName="name" required>
-      <div *ngIf="form.get('name').invalid" class="invalid-feedback"> Place name is required </div>
+        formControlName="name" >
+      <div class="invalid-feedback"> Place name is required </div>
     </div>
     <div class="form-group">
       <label for="address">Address</label>
       <input type="text" class="form-control" aria-describedby="address" placeholder="Street or avenue name, number"
-        formControlName="address" required>
+        formControlName="address" >
       <div *ngIf="form.get('address').invalid" class="invalid-feedback">Place's address is required </div>
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" id="placeDescription" formControlName="description" rows="3"></textarea>
+      <textarea class="form-control" id="placeDescription" formControlName="description" rows="3">Just description</textarea>
     </div>
 
 
@@ -25,11 +25,11 @@
           <input type="file" #fileUploader accept="image/x-png,image/jpeg" (change)="onFileChanged($event)">
         </div>
         <div class="col-md-6">
-          <div class="image_preview" *ngIf="imagePreview">
+          <div class="image_preview" *ngIf="imagePreview &&form.get('image').valid">
             <div class="card" style="width: 18rem;">
               <img class="card-img-top" [src]="imagePreview" [alt]="form.value.name">
               <div class="card-body">
-                <h5 class="card-title"> {{place.name}}</h5>
+                <h5 class="card-title"></h5>
               </div>
             </div>
           </div>
