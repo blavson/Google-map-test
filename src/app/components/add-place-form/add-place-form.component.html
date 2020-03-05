@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="form" (submit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class="form-group">
       <label for="placeName" id="labelPlaceName">Place Name</label>
       <input type="text" class="form-control" aria-describedby="place name" placeholder="Enter place name"
@@ -22,17 +22,9 @@
       <div class="row">
         <div class="col-md-3">
           <button type="button" class="btn btn-secondary btn-sm" (click)="fileUploader.click()"> Pick Image</button>
-          <input type="file" #fileUploader accept="image/x-png,image/jpeg" (change)="onFileChanged($event)">
+          <input type="file" #fileUploader  (change)="onFileChanged($event)">
         </div>
         <div class="col-md-6">
-          <div class="image_preview" *ngIf="imagePreview &&form.get('image').valid">
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" [src]="imagePreview" [alt]="form.value.name">
-              <div class="card-body">
-                <h5 class="card-title"></h5>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

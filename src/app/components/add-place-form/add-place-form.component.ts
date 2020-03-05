@@ -39,7 +39,9 @@ export class AddPlaceFormComponent implements OnInit {
       name: new FormControl(null, { validators : [Validators.required] }),
       address: new FormControl(null, { validators : [Validators.required] }),
       description: new FormControl(this.place.description),
-      image: new FormControl(null, { validators : [Validators.required], asyncValidators: [this.mimeTypeValidator] })
+      myimage: new FormControl(null, { validators : [Validators.required],
+         // asyncValidators: [this.mimeTypeValidator]
+       })
     });
   }
 
@@ -56,35 +58,24 @@ export class AddPlaceFormComponent implements OnInit {
 
   onSubmit() {
     this.place.infoWindow = this.generateInfoWindow();
-    this.place.name = this.form.get('name').value;
-    this.place.address = this.form.get('address').value;
-    this.place.description = this.form.get('description').value;
-    this.place.image = this.form.get('image').value.name;
-
-    const tmpFile : File = this.form.get('image').value;
-    this.ps.addPlace(this.place, tmpFile);
-    this.form.reset();
+    this.place.name = this.form.value.name;
+    this.place.address = this.form.value.address
+    this.place.description = this.form.value.description;
+    const img = this.form.get('myimage').value;
+    //this.place.image = this.form.value.myThumbnail;
+    this.ps.addPlace(this.place, img);
+   // this.form.reset();
   }
 
   onFileChanged(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.place.image = file.name;
-    this.form.patchValue({ image: file });
-    this.form.get('image').updateValueAndValidity();
-    //console.log(file,   console.log(this.form));
+    this.form.patchValue({ myimage: file });
+    this.form.get('myimage').updateValueAndValidity();
    // this.addImageDetails(file);
   }
 
 
-  addImageDetails(f: File) {
-    const details = document.querySelector('.image_preview');
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(f);
-  }
-
+/*
   mimeTypeValidator = (control: AbstractControl): Observable<{ [key: string]: any }> | Promise<{ [key: string]: any }> => {
     const localFile = control.value as File;
     console.log('asyncValidator = ' + localFile);
@@ -98,7 +89,8 @@ export class AddPlaceFormComponent implements OnInit {
         // tslint:disable-next-line: prefer-for-of
         for (let index = 0; index < u8.length; index++) {
           someFormat += u8[index].toString(16);
-        }
+       }const express = require('express');
+const app = express();
         if (someFormat === 'ffd8' || someFormat === '8950') {
           isValid = true;
         }
@@ -116,4 +108,5 @@ export class AddPlaceFormComponent implements OnInit {
     });
     return frObs;
   }
+  */
 }

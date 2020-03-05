@@ -27,7 +27,9 @@ const placeSchema = new Schema({
   },
   description: String,
   infoWindow: String,
+  */
   image: String,
+/*
   icon: String,
   rating: Number,
   */

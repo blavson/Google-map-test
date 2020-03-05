@@ -6,6 +6,7 @@ const MIME_TYPE_MAP = {
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
+
 /*
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,8 +15,8 @@ const MIME_TYPE_MAP = {
       if (isValid) {
          error = null;
       }
-      cb(error, '/tmp/gmap001');
-    },
+      cb(error, './public/');
+   },
     filename: (req, file, cb) => {
       const name = file.originalname.toLowerCase().split(' ').join('-');
       const ext = MIME_TYPE_MAP[file.mimetype];
@@ -24,19 +25,20 @@ const MIME_TYPE_MAP = {
        cb(null, fname);
     }
   });
-
 */
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/tmp/my-uploads')
+     console.log(req.files);
+    cb(null, './public/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
   }
 });
 
-const upload = multer({ storage : storage });
+//const upload = multer({ dest : './public'});
 
 getPlaces = async (req, res, next) => {
   try {
@@ -52,10 +54,14 @@ getPlaces = async (req, res, next) => {
   }
 }
 
-addPlace = (upload.single('image') ,async (req, res, next) => {
+const upload = multer({ storage : storage });
+addPlace = (upload.single('myimage'), (req, res) => {
   try {
-    const place = await Place.create(req.body);
-    return res.status(201).send(place);
+       //const image = req.files.image;
+      // console.log(req.body, image);
+      console.log('aaaa');
+
+     res.status(201).json({ success : true});
   } catch (error) {
     res.status(500).json({ error: 'Can\'t Add Place' });
   }
