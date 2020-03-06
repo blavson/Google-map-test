@@ -62,7 +62,6 @@ export class AddPlaceFormComponent implements OnInit {
     this.place.address = this.form.value.address
     this.place.description = this.form.value.description;
     const img = this.form.get('myimage').value;
-    //this.place.image = this.form.value.myThumbnail;
     this.ps.addPlace(this.place, img);
    // this.form.reset();
   }
