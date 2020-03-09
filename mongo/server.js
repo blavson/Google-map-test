@@ -21,7 +21,6 @@ const MIME_TYPE_MAP = {
 }
 
 app.get('/api/v1/places', controller.getPlaces);
-
 app.post('/api/v1/places',  controller.addPlace);
 
 connectDB();
