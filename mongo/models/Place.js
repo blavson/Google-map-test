@@ -11,7 +11,6 @@ const placeSchema = new Schema({
     type: String,
     required: true
   },
-/*
   location: {
     type: {
       type: String,
@@ -27,15 +26,12 @@ const placeSchema = new Schema({
   },
   description: String,
   infoWindow: String,
-  */
   image: String,
-/*
   icon: String,
   rating: Number,
-  */
   createdAt: { type: Date, default: Date.now }
 });
-/*
+
 placeSchema.pre('save', async function (next) {
   const loc = await geocoder.geocode(this.address);
   this.location = {
@@ -45,7 +41,6 @@ placeSchema.pre('save', async function (next) {
   }
   this.neighborhood = loc[0].neighborhood;
 })
-*/
 const Place = mongoose.model('Place', placeSchema);
 
 module.exports = Place
