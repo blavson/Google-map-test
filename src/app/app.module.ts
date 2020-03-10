@@ -37,7 +37,7 @@ import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form
     AppRoutingModule,
     FontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCrJ8fne1zmz8fvC0pnE1oUyhlV617JZBc'
+      apiKey: 'AIzaSyBofbFTGwnVBYhjGG6tQvSHgjbz948d0qE'
     }),
     AngularFontAwesomeModule,
     HttpClientModule,
