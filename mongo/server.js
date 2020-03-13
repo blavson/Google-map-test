@@ -2,15 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const connectDB = require('./config/db');
-const multer = require('multer')
 const controller = require('./controllers/places');
 
-
+app.use('/static/',express.static('./images/uploads/'))
 app.use(cors());
 
 require('dotenv').config();
 app.use(express.json());
-app.use(express.static('./public'));
 //app.use('/api/v1/places', require('./routes/places'));
 app.use('/api/v1/comments', require('./routes/comments'));
 

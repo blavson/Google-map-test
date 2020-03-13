@@ -17,50 +17,35 @@ export class AddPlaceFormComponent implements OnInit {
   constructor(private ps: PlacesServiceService) { }
 
   ngOnInit() {
-     this. place = new Place();
-     this. place.name='rusta1';
-     this.place.address = 'rustaveli ave 2';
-     this.place.description= 'Just a rustaveli ave 2 description';
-     this.place.infoWindow = '';
-     this.place.rating = 0;
-     this.place.icon= 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-     this.place.image = null;
-
-      /*({
-      name: 'rusta1',
-      address: 'Rustaveli ave 1',
-      description: 'Just a rustaveli ave 1 description',
-      infoWindow: '',
-      rating: 0,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-   });
-*/
-    this.form = new FormGroup({
+      this.form = new FormGroup({
       name: new FormControl(null, { validators : [Validators.required] }),
       address: new FormControl(null, { validators : [Validators.required] }),
-      description: new FormControl(this.place.description),
+      description: new FormControl(null),
       myimage: new FormControl(null, { validators : [Validators.required],
          // asyncValidators: [this.mimeTypeValidator]
        })
     });
+
+    this. place = new Place();
   }
 
   generateInfoWindow() {
-    let infoWindow: string = '';
-    infoWindow += '<div id=\'iw-container\'><div class=\'iw-title\'>' + this.place.name + '</div>' +
-      '<div class=\'iw-content\'><div class=\'iw-subTitle\'>' + this.place.address + '</div>' +
-      '<p>' + this.place.description + '</p>' +
-      '<div class=\'iw-subTitle\'>Contacts</div> <p><br>' +
-      'Some contacts here' + '</p></div>' +
-      ' <div class=\'iw-bottom-gradient\'></div> </div>';
+    //const infowindow = "<div style='float:left'><img src='http://i.stack.imgur.com/g672i.png'></div><div style='float:right; padding: 10px;'><b>Title</b><br/>123 Address<br/> City,Country</div>";
+    const infoWindow = "<div id='iw-container'><div class='iw-title'>" + this.place.name + '</div>' +
+      "<div class='iw-content'><div class='iw-subTitle'>" + this.place.address + '</div>' +
+      "<p>" + this.place.description + "</p>" +
+      "<div class='iw-subTitle'>Contacts</div> <p><br>" +
+      "Some contacts here" + "</p></div>" +
+      " <div class='iw-bottom-gradient'></div> </div>";
     return infoWindow;
   }
 
   onSubmit() {
-    this.place.infoWindow = this.generateInfoWindow();
+   // this.place.infoWindow = this.generateInfoWindow();
     this.place.name = this.form.value.name;
     this.place.address = this.form.value.address
     this.place.description = this.form.value.description;
+    this.place.icon= 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
     const img = this.form.get('myimage').value;
     this.ps.addPlace(this.place, img);
    // this.form.reset();

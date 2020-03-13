@@ -36,11 +36,12 @@ addPlace =  (req, res, next) => {
           return res.end("Error uploading file.");
         } else {
          const place = await new Place(req.body).save();
-         console.log(place);
-
-         const new_file_name = req.file.destination + '/' + place._id  +  path.extname(req.file.originalname) ;
+         const new_file_name = req.file.destination + '/' + place.id + '/thumbnail'   +  path.extname(req.file.originalname) ;
          const old_file_name = req.file.destination + '/' + req.file.originalname; 
 
+         if (!fs.existsSync(req.file.destination + '/' + place.id)) {
+          fs.mkdirSync(req.file.destination + '/' + place.id, 0744);
+         }
          fs.rename(old_file_name, new_file_name, function (err) {
            if (err) throw err
            console.log('Successfully renamed - AKA moved!')

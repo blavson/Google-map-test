@@ -21,6 +21,8 @@ export class PlacesServiceService {
      placeData.append('name',place.name);
      placeData.append('address',place.address);
      placeData.append('description', place.description);
+     placeData.append('icon', place.icon)
+   //  placeData.append('infoWindow', place.infoWindow)
      placeData.append('myimage', image, image.name);
 
      this.http.post('http://localhost:3000/api/v1/places', placeData).subscribe(result => {
