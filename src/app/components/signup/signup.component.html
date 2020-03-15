@@ -1,0 +1,21 @@
+<div class="container">
+  <form #f1="ngForm" (ngSubmit)="signupUser(f1.form.value)">
+    <div class="form-group">
+      <span class='AuthTitle'>Sign Up</span>
+    </div>
+    <div class="form-group">
+      <label for="email" id="emailLabel">Email : </label>
+      <input type="email" id='email' [(ngModel)]="user.email" class="form-control"  name='email' required >
+      <div class="invalid-feedback"> Email or Username is required </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="user.password" id='password' name='password' required>
+      <div  class="invalid-feedback">Email is required </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="form-control btn btn-light">Submit</button>
+    </div>
+  </form>
+</div>

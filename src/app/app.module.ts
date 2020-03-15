@@ -1,7 +1,7 @@
 import { PlacesServiceService } from './services/places-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule }   from '@angular/forms';
+import { ReactiveFormsModule, FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgmCoreModule } from '@agm/core';
@@ -18,6 +18,8 @@ import { StarRateComponent } from './components/star-rate/star-rate.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MergeMapAndCommentsComponent } from './components/merge-map-and-comments/merge-map-and-comments.component';
 import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form
     StarRateComponent,
     PaginationComponent,
     MergeMapAndCommentsComponent,
-    AddPlaceFormComponent
+    AddPlaceFormComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form
     AngularFontAwesomeModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [PlacesServiceService],
   bootstrap: [AppComponent]

@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const connectDB = require('./config/db');
-const controller = require('./controllers/places');
+const placeConstroller = require('./controllers/places');
+const authController = require('./controllers/auth');
 
 app.use('/static/',express.static('./images/uploads/'))
 app.use(cors());
@@ -18,8 +19,11 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 }
 
-app.get('/api/v1/places', controller.getPlaces);
-app.post('/api/v1/places',  controller.addPlace);
+app.get('/api/v1/places', placeConstroller.getPlaces);
+app.post('/api/v1/places',  placeConstroller.addPlace);
+app.get('/api/v1/users', authController.getUsers)
+app.post('/api/v1/users/signup', authController.signupUser)
+app.post('/api/v1/users/login', authController.loginUser);
 
 connectDB();
 
