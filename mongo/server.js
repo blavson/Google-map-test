@@ -10,21 +10,22 @@ app.use(cors());
 
 require('dotenv').config();
 app.use(express.json());
-//app.use('/api/v1/places', require('./routes/places'));
+app.use('/api/v1/places', require('./routes/places'));
 app.use('/api/v1/comments', require('./routes/comments'));
+app.use('/api/v1/users/', require('./routes/auth'));
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
-
+/*
 app.get('/api/v1/places', placeConstroller.getPlaces);
 app.post('/api/v1/places',  placeConstroller.addPlace);
 app.get('/api/v1/users', authController.getUsers)
 app.post('/api/v1/users/signup', authController.signupUser)
 app.post('/api/v1/users/login', authController.loginUser);
-
+*/
 connectDB();
 
 // const db = mongoose.connection;
