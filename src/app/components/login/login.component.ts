@@ -1,3 +1,4 @@
+import { Result } from './../../models/result';
 import { PlacesServiceService } from './../../services/places-service.service';
 import { User } from './../../models/User';
 import { AuthService } from './../../services/auth.service';
@@ -10,6 +11,7 @@ import { NgForm }   from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  token : string;
   constructor(private auths : AuthService) { 
   }
   
@@ -17,8 +19,12 @@ export class LoginComponent implements OnInit {
   }
   
   loginUser(f : NgForm) {
-    const email = f.controls['email'].value;
-    const password = f.controls['password'].value;
-    this.auths.loginUser(email, password);
-  }  
+    if (f.invalid)
+      return;
+    this.auths.loginUser(f.value.email, f.value.password).subscribe(result => {
+      if(result.success) {
+        this.token = result.token;
+      }
+    })
+  }
 }

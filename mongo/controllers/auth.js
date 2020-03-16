@@ -29,22 +29,16 @@ loginUser = ((req, res) => {
     if (!user) {
      return  res.status(401).json({success : false, resp : "Can't locate user"})
     }
-    console.log('found one');
-    return bcrypt.compare(req.body.password, user.password );
-  }).then(result => {
-    if (result === false) {
-      console.log('User or password doesn\'t match ');
-      return  res.status(401).json({success : false, resp : "NO success"})   
-    }
-    console.log("User id = ", user._id);
-   // const token = jwt.sign({email : user.email, id : user._id }, 'some-long-secret-passphrase');
-     //  { expiresIn: '1h'})
-    console.log("token = ", token);   
-   return res.status(200).json({success : true, token : token});  
-  }).catch(err => {
-    console.log('Catch...');
-    return  res.status(401).json({success : false, resp : "The last message"})
-  })
+    console.log('User = ',user);
+    console.log('Req body =', req.body);
+    bcrypt.compare(req.body.password, user.password , (err, result) => {
+      if (result  === false )  {
+        return  res.status(401).json({success : false, resp : "NO success"})   
+      }
+     const token = jwt.sign({email : user.email, id : user._id }, 'some-long-secret-passphrase');
+     return res.status(200).json({success : true, token : token }); 
+});
+})//findone
 })
 
 getUsers = async (req, res, next) => {

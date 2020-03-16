@@ -1,3 +1,4 @@
+import { Result } from './../models/result';
 import { Observable } from 'rxjs';
 import { User } from './../models/User';
 import { Injectable } from '@angular/core';
@@ -12,13 +13,10 @@ export class AuthService {
 
   signupUser(user : User ) {
    return this.http.post('http://localhost:3000/api/v1/users/signup', user).subscribe(result => {
-     console.log(result);
    })
   }
 
-  loginUser(email : string, password : string){
-     return  this.http.post('http://localhost:3000/api/v1/users/login',{ email, password }).subscribe(result => {
-       console.log(result)
-     })
-  }
+  loginUser(email : string, password : string) : Observable<any>{
+      return this.http.post<any>('http://localhost:3000/api/v1/users/login',{ email, password });
+    }
 }
