@@ -35,7 +35,7 @@ loginUser = ((req, res) => {
       if (result  === false )  {
         return  res.status(401).json({success : false, resp : "NO success"})   
       }
-     const token = jwt.sign({email : user.email, id : user._id }, 'passphrase' , {expiresIn : '0.6h'});
+     const token = jwt.sign({email : user.email, id : user._id }, 'passphrase' , {expiresIn : '1h'});
      console.log('Auth.js token :' + token)
      return res.status(200).json({success : true, token : token }); 
 });
