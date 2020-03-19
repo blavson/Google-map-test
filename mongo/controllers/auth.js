@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 signupUser = ( (req, res) => {
   console.log(req.body);
-  bcrypt.hash(req.body.password, 10 )
+  bcrypt.hash(req.body.password, 10)
   .then(hash => {
     const user = new User ({
       email : req.body.email,
@@ -12,7 +12,9 @@ signupUser = ( (req, res) => {
     });
     user.save().then(
       resp => res.status(201).json({success : true, resp : resp})
-    )
+    ).catch(err => {
+      res.status(500).json({status : false, message : 'Duplicate user'});
+    })
   })
   .catch(err => {
     res.status(500).json({
@@ -29,16 +31,17 @@ loginUser = ((req, res) => {
     if (!user) {
      return  res.status(401).json({success : false, resp : "Can't locate user"})
     }
-    console.log('User = ',user);
-    console.log('Req body =', req.body);
     bcrypt.compare(req.body.password, user.password , (err, result) => {
       if (result  === false )  {
         return  res.status(401).json({success : false, resp : "NO success"})   
       }
-     const token = jwt.sign({email : user.email, id : user._id }, 'some-long-secret-passphrase');
+     const token = jwt.sign({email : user.email, id : user._id }, 'passphrase' , {expiresIn : '0.6h'});
+     console.log('Auth.js token :' + token)
      return res.status(200).json({success : true, token : token }); 
 });
-})//findone
+}).catch(err => {
+  return res.status(401).json({success : false , message : 'Unpredicted error'})
+  });
 })
 
 getUsers = async (req, res, next) => {

@@ -4,12 +4,12 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const authSchema = new Schema({
     email: {
-      type: String,
+     type: String,
      required: true,
      unique : true
   },
     password : {
-      type: String,
+     type: String,
      required: true
   },
 });

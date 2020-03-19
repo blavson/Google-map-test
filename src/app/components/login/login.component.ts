@@ -11,20 +11,17 @@ import { NgForm }   from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  token : string;
   constructor(private auths : AuthService) { 
   }
   
   ngOnInit() {
   }
   
+
   loginUser(f : NgForm) {
     if (f.invalid)
       return;
-    this.auths.loginUser(f.value.email, f.value.password).subscribe(result => {
-      if(result.success) {
-        this.token = result.token;
-      }
-    })
+    this.auths.loginUser(f.value.email, f.value.password);
   }
+
 }

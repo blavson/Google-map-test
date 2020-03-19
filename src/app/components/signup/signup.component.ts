@@ -10,18 +10,16 @@ import { NgForm, Form } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-user : User;
+
   constructor(private auths : AuthService) { }
 
   ngOnInit() {
-    this.user = new User();
-    
   }
 
-  signupUser(v) {
-   this.user.email = v.email;
-   this.user.password = v.password;
-
-    this.auths.signupUser(this.user);
+  signupUser(f : NgForm) {
+    if (f.invalid) 
+      return;
+      this.auths.createUser(f.value.email, f.value.password)
+    }
   }
-}
+  

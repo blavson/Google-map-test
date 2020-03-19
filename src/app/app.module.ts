@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './services/auth-interceptor';
 import { PlacesServiceService } from './services/places-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,7 @@ import { MapDahsboardComponent } from './components/map-dahsboard/map-dahsboard.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlaceListComponent } from './components/place-list/place-list.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommentboxComponent } from './components/commentbox/commentbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
@@ -49,7 +50,7 @@ import { SignupComponent } from './components/signup/signup.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [PlacesServiceService],
+  providers: [PlacesServiceService, {provide : HTTP_INTERCEPTORS , useClass : AuthInterceptor, multi : true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
