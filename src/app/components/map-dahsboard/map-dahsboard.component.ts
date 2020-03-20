@@ -98,4 +98,5 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
+  
 }

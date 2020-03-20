@@ -21,6 +21,7 @@ import { MergeMapAndCommentsComponent } from './components/merge-map-and-comment
 import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SignupComponent } from './components/signup/signup.component';
     MergeMapAndCommentsComponent,
     AddPlaceFormComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
