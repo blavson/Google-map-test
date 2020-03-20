@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService  {
 private token : string;
 private tokenTimer : any;
 private isAuthenticated = false;
