@@ -2,18 +2,22 @@ import { Router } from '@angular/router';
 import { Result } from './../models/result';
 import { Observable, Subject } from 'rxjs';
 import { User } from './../models/User';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
 private token : string;
+private tokenTimer : any;
 private isAuthenticated = false;
 private authStatusListener =  new Subject<boolean>()
 
-  constructor(private http : HttpClient, private router:Router) { }
+  constructor(private http : HttpClient, private router:Router) {
+    console.log('Auth constructor')
+   }
+
 
   getToken() : string {
     return this.token;
@@ -35,27 +39,45 @@ private authStatusListener =  new Subject<boolean>()
    })
   }
 
-  loginUser(email : string, password : string) {
+  async loginUser (email : string, password : string) {
     const user : User = {email, password}
-      this.http.post<any>('http://localhost:3000/api/v1/users/login',user).subscribe(result => {
+      await this.http.post<any>('http://localhost:3000/api/v1/users/login',user).subscribe(result => {
         if (result.success) {
           if (result.token) {
+              console.log('Expires in ' + result.expiresIn)
+               const tokenTimer = setTimeout(()=> {
+                 this.logoutUser();
+               }, result.expiresIn * 1000);
+              
               this.isAuthenticated = true;
               this.token = result.token;
+
               this.authStatusListener.next(this.isAuthenticated);
-              localStorage.setItem('token', result.token);
-              localStorage.setItem('isAuthenticated', '1');
+              this.saveCredentials(this.token, '1', result.expiresIn*  1000);
               this.router.navigate(['/']);
-          }
-        }
-      })
-    }
+         }
+      }
+  });
+}
 
   logoutUser() {
     console.log('logout clicked');
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('token');
+    this.removeCredentials();
     this.authStatusListener.next(false);
+    clearTimeout(this.tokenTimer);
     this.router.navigate(['/']);
   }  
+
+  saveCredentials(token : string, status : string, tokenTimer : any) {
+    localStorage.setItem('token',token);
+    localStorage.setItem('isAuthenticated', status);
+    localStorage.setItem('tokenTimer', tokenTimer);
+  }
+
+  removeCredentials() {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenTimer');
+    clearTimeout(this.tokenTimer);
+  }
 }

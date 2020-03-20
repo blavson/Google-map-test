@@ -10,15 +10,22 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit,OnDestroy {
 private authListenerSubs : Subscription;
 private userIsAuthenticated = false ;
+private ttl :any ;
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
     const isAuth  =localStorage.getItem('isAuthenticated');
+    this.ttl = localStorage.getItem('tokenTimer')
+    if (this.ttl) {
+      const tokenTimer = setTimeout(()=> {
+        this.onLogout();
+      }, this.ttl );
+
+    }
     if (isAuth)
       this.userIsAuthenticated  = true;
-    console.log('Navbar ngoninit : ' + this.userIsAuthenticated );
     this.authListenerSubs = this.auth.getAuthStatusListener().subscribe(isAuthenticated => {
-      this.userIsAuthenticated = isAuthenticated;
+        this.userIsAuthenticated = isAuthenticated;
     });
   }
 

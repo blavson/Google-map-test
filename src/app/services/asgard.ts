@@ -13,7 +13,7 @@ export class Asgard  implements CanActivate{
      if(localStorage.getItem('isAuthenticated'))
       isAuth = true;
     console.log('Asgard isAuth :' + isAuth);
-    if (!isAuth) {
+    if (isAuth === false) {
       this.router.navigate(['/login']);
     }
     return isAuth;

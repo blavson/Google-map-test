@@ -37,7 +37,7 @@ loginUser = ((req, res) => {
       }
      const token = jwt.sign({email : user.email, id : user._id }, 'passphrase' , {expiresIn : '1h'});
      console.log('Auth.js token :' + token)
-     return res.status(200).json({success : true, token : token }); 
+     return res.status(200).json({success : true, token : token , expiresIn : 3600}); 
 });
 }).catch(err => {
   return res.status(401).json({success : false , message : 'Unpredicted error'})
