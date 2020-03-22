@@ -42,11 +42,14 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
     this.placeIdEmitter.emit({ id, page });
   }
 
-  getPlaces(map) {
-    this.ps.getPlaces().subscribe(places => {
-      this.places = places;
+   getPlaces(map) {
+     this.ps.getPlaces().subscribe(result => {
+
+     // console.log(result)
+      console.log(result)
+      this.places = result.data ;
       let index = 0;
-      for (const place of this.places['data']) {
+      this.places.forEach(place =>  {
         const markerPos = new google.maps.LatLng(
           place.location.coordinates[1],
           place.location.coordinates[0]
@@ -78,7 +81,7 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
         });
 
         index++;
-      }
+      })
     });
   }
 

@@ -1,7 +1,9 @@
 export class Place {
+  _id : string;
+  [x: string]: string;
   name: string;
   address: string;
-  location?: {
+  location: {
     type: {
       type: string,
       enum: ['Point'],
@@ -14,7 +16,7 @@ export class Place {
   }
   icon: string;
   image?: string;
-  rating: number;
+  rating?: string;
   description: string;
   infoWindow: string;
 }

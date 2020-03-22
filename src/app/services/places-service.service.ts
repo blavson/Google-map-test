@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Place } from './../models/place';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,14 @@ export class PlacesServiceService {
   constructor(private http: HttpClient) {
   }
 
-  public getPlaces(): Observable<{success : boolean, count : number, data : Place[]}> {
-    return this.http.get<{success : boolean, count : number, data : Place[]}>('http://localhost:3000/api/v1/places');
+  public getPlaces(placeAddress : string=''): Observable<{success : boolean, count : number, data : Place[]}> {
+    const params = new HttpParams().append('address', placeAddress);
+    return this.http.get<{success : boolean, 
+                          count : number, 
+                          data : Place[]}>('http://localhost:3000/api/v1/places', {params : params});
+
   }
+
 
   public addPlace(place: Place, image : File) {
      let placeData = new FormData();
@@ -30,5 +35,11 @@ export class PlacesServiceService {
 //         const place:Place = result as Place;
    //      console.log("addPlace function in service " + place);
       });
+  }
+
+  public getTestRequest() {
+    this.http.get('http://localhost:3000/api/v1/places/test').subscribe(result =>{
+      console.log(result);
+    })
   }
 }

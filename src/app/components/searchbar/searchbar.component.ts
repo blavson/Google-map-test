@@ -17,31 +17,44 @@ places : Place[];
   }
 
   onKeyUp() {
-      console.log(this.sphrase);
+      if (this.sphrase === '')
+        this.fetchNearbyObjects();
+      else
+      this.fetchNearbyObjects(this.sphrase);  
     }
-//{success : boolean, count : number, data : Place[]}s
-  onFocus() {
-    if (this.sphrase.length > 0)
-      return;
-    this.pserv.getPlaces().subscribe(res => {
-    const result = res;
-    if (res.success) {
-      this.places = res.data;
-    }
-    const ul = document.getElementById('placeArray');
-    ul.innerHTML='';
-    ul.hidden=false;
 
-    this.places.forEach(place => {
-      let li = document.createElement('li'); 
-      li.appendChild(document.createTextNode(place.name + '(' + place.address + ')' ));
-      li.setAttribute('href', '#')
-      li.setAttribute('class','list-group-item list-group-item-action list-group-item-secondary');
-      ul.appendChild(li);
-    })
-    ul.removeAttribute('display')
-    console.log(this.places);
-  })    
+  fetchNearbyObjects(address : string = '') {
+    this.pserv.getPlaces(address).subscribe(res => {
+      const result = res;
+      if (res.success) {
+        this.places = res.data;
+      }
+      const ul = document.getElementById('placeArray');
+      ul.innerHTML='';
+      ul.hidden=false;
+  
+      this.places.forEach(place => {
+        let li = document.createElement('li'); 
+        li.appendChild(document.createTextNode(place.address ));
+        li.setAttribute('href', '#')
+        li.setAttribute('class','list-group-item list-group-item-action list-group-item-secondary');
+        ul.appendChild(li);
+      })
+      ul.removeAttribute('display')
+    })    
+  
+  }  
+
+
+  getTestRequest() {
+    this.pserv.getTestRequest();
+  }
+
+
+  onFocus() {
+    if (this.sphrase !=='')
+      return;
+    this.fetchNearbyObjects();
   } 
 
   onFocusOut(event ) {
@@ -52,6 +65,10 @@ places : Place[];
       console.log(placeObject)
       placeName = placeObject.innerText;
       console.log('placename = ', placeName)
+      const desiredPlace = this.pserv.getPlaces(placeName).subscribe(result => {
+
+        console.log(result.data);
+      })
     }
     if (placeName !== undefined) {
       this.sphrase = placeName

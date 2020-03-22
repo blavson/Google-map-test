@@ -4,9 +4,26 @@ const fs = require('fs')
 const path = require('path')
 
 
+
+getTestRequest = async(req, res, next ) => {
+  console.log('Get Test Request')
+  const r = await Place.find({ "address" : {"$regex": "pali", "$options": "i"} } )
+  res.send(r)
+}
+
 getPlaces = async (req, res, next) => {
+ // let  { placeAddress} = req.params;
+
   try {
-    const places = await Place.find();
+    const placeAddress= req.query.address;
+
+    //console.log('query address= ' + req.query.address)
+    if (placeAddress != undefined || placeAddress !== '') {
+      places = await Place.find({$or : [{ "address" : {"$regex": placeAddress, "$options": "i"} }, 
+                                        {"name" : {"$regex" : placeAddress, "$options" :"i"} }] })
+    } else 
+       places = await Place.find();
+       console.log('pl2 = ', places)
     return res.status(200).json({
       success: true,
       count: places.length,
@@ -17,6 +34,7 @@ getPlaces = async (req, res, next) => {
     res.status(500).json({ error: 'Error happened' });
   }
 }
+
 
 addPlace =  (req, res, next) => {
   try {
