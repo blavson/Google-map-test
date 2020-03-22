@@ -1,6 +1,5 @@
 export class Place {
   _id : string;
-  [x: string]: string;
   name: string;
   address: string;
   location: {

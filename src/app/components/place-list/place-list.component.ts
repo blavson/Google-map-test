@@ -1,3 +1,4 @@
+import { MarkerService } from './../../services/marker.service';
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommentsService } from 'src/app/services/comments.service';
@@ -18,10 +19,11 @@ export class PlaceListComponent implements OnInit {
   collectionSize : number;
   pageSize : number;
 
-  constructor(private cs: CommentsService) { }
+  constructor(private cs: CommentsService, private ms : MarkerService) { }
 
   ngOnInit() {
       this.result = new Result();
+      this.getClickedPlace();
   }
 
   public receiveId(event) {
@@ -35,6 +37,15 @@ export class PlaceListComponent implements OnInit {
     })
   }
 
+  getClickedPlace() {
+    this.ms.clickSubj.subscribe(_id => {
+      this.cs.getComments(_id,1).subscribe(res => {
+        this.result = res ;
+        this.collectionSize = res.count;
+        console.log("Col size " +  this.collectionSize);
+    })   
+    })
+  }
   onPageChange(event) {
      this.page = event;
      console.log("event = " + event);

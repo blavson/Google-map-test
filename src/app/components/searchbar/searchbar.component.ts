@@ -1,3 +1,4 @@
+import { MarkerService } from './../../services/marker.service';
 import { Place } from './../../models/place';
 import { PlacesServiceService } from './../../services/places-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ export class SearchbarComponent implements OnInit {
 sphrase : string='';
 places : Place[];
 
-  constructor(private pserv : PlacesServiceService) { }
+  constructor(private pserv : PlacesServiceService, private ms : MarkerService) { }
 
   ngOnInit() {
   }
@@ -42,7 +43,6 @@ places : Place[];
       })
       ul.removeAttribute('display')
     })    
-  
   }  
 
 
@@ -67,7 +67,9 @@ places : Place[];
       console.log('placename = ', placeName)
       const desiredPlace = this.pserv.getPlaces(placeName).subscribe(result => {
 
-        console.log(result.data);
+        this.ms.simulateClick(result.data[0]._id)  
+        console.log(result.data[0]._id);
+
       })
     }
     if (placeName !== undefined) {
