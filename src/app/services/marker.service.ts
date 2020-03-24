@@ -45,6 +45,7 @@ export class MarkerService implements OnInit {
   simulateClick(_id : string) {
     this.markers.forEach(marker => {
       if (_id === marker.get('placeId')) {
+        google.maps.event.trigger(marker, 'click');
         this.clickSubj.next(_id);
         };
     })
