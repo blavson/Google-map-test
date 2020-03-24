@@ -21,7 +21,7 @@ export class AddPlaceFormComponent implements OnInit {
       name: new FormControl(null, { validators : [Validators.required] }),
       address: new FormControl(null, { validators : [Validators.required] }),
       description: new FormControl(null),
-      myimage: new FormControl(null, { validators : [Validators.required],
+      myimage: new FormControl(null, { validators : [],
          // asyncValidators: [this.mimeTypeValidator]
        })
     });

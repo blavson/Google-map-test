@@ -67,6 +67,7 @@ places : Place[];
       console.log('placename = ', placeName)
       const desiredPlace = this.pserv.getPlaces(placeName).subscribe(result => {
 
+        
         this.ms.simulateClick(result.data[0]._id)  
         console.log(result.data[0]._id);
 

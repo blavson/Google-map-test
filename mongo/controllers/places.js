@@ -53,9 +53,22 @@ addPlace =  (req, res, next) => {
         if(err) {
           return res.end("Error uploading file.");
         } else {
+
          const place = await new Place(req.body).save();
-         const new_file_name = req.file.destination + '/' + place.id + '/thumbnail'   +  path.extname(req.file.originalname) ;
-         const old_file_name = req.file.destination + '/' + req.file.originalname; 
+         if (!req.file) {
+
+           const destName = `images/uploads/${place.id}/thumbnail.png`
+
+          if (!fs.existsSync( `images/uploads/${place.id}`)) {
+            fs.mkdirSync(`images/uploads/${place.id}`, 0744);
+           }
+
+           fs.createReadStream('images/dummy_house.png')
+            .pipe(fs.createWriteStream(destName)); 
+          console.log('Filled with dummy house image')
+         } else {
+              const new_file_name = req.file.destination + '/' + place.id + '/thumbnail'   +  path.extname(req.file.originalname) ;
+              const old_file_name = req.file.destination + '/' + req.file.originalname; 
 
          if (!fs.existsSync(req.file.destination + '/' + place.id)) {
           fs.mkdirSync(req.file.destination + '/' + place.id, 0744);
@@ -65,6 +78,7 @@ addPlace =  (req, res, next) => {
            console.log('Successfully renamed - AKA moved!')
          })         
         }
+      }
     });
     
      res.status(201).json({ success : true});

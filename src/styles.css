@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */#map-canvas {
+/* You can add global styles to this file, and also import other style files */
+#map-canvas {
 	margin: 0;
 	padding: 0;
 	height: 400px;
