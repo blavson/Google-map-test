@@ -11,6 +11,7 @@ export class MarkerService implements OnInit {
   private markers: google.maps.Marker[] = [];
   private places : Place[];
   public  clickSubj = new Subject<string>();
+  public lngLat = new google.maps.LatLng(41.709157, 44.767054);
 
   constructor(private ps : PlacesServiceService) { }
   ngOnInit() {}
@@ -26,10 +27,10 @@ export class MarkerService implements OnInit {
 
   public initGMap(map: google.maps.Map, htmle : HTMLElement) {
     this.map = map;
-    const lngLat = new google.maps.LatLng(41.709157, 44.767054);
+    
 
     const mapOptions: google.maps.MapOptions = {
-      center: lngLat,
+      center: this.lngLat,
       zoom: 16,
       // fullscreenControl: false,
       // mapTypeControl: false,

@@ -19,6 +19,11 @@ export class PlacesServiceService {
 
   }
 
+  public getLocalPlaces(): Observable<{success : boolean, count : number, data : Place[]}>  {
+    return this.http.get<{success : boolean, 
+      count : number, 
+      data : Place[]}>('http://localhost:3000/api/v1/places');
+  }
 
   public addPlace(place: Place, image : File) {
      let placeData = new FormData();
