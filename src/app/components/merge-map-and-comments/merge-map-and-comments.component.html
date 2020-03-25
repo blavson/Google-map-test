@@ -1,8 +1,12 @@
 <div class="row">
    <div class="col-md-8">
-      <app-map-dahsboard (placeIdEmitter)="apl.receiveId($event, 1)">></app-map-dahsboard>
+      <app-map-dahsboard ></app-map-dahsboard>
    </div>
-   <div class="col-md-4">
-    <app-place-list #apl></app-place-list>
+   <div class="col-md-4" id="topmargin">
+      <div *ngIf="!showPlaces">
+        <app-comment-list #apl></app-comment-list>
+      </div>
+      <div *ngIf="showPlaces">
+         <app-place-list></app-place-list>   
     </div>
 </div>

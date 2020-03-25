@@ -1,7 +1,7 @@
 import { MarkerService } from './../../services/marker.service';
 import { Place } from './../../models/place';
 import { PlacesServiceService } from './../../services/places-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-searchbar',
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class SearchbarComponent implements OnInit {
 sphrase : string='';
 places : Place[];
+@Output() showPlaces: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private pserv : PlacesServiceService, private ms : MarkerService) { }
 
@@ -18,10 +19,15 @@ places : Place[];
   }
 
   onKeyUp() {
-      if (this.sphrase === '')
+      if (this.sphrase === '') {
         this.fetchNearbyObjects();
-      else
-      this.fetchNearbyObjects(this.sphrase);  
+         this.pserv.showPlaces.next(true);
+         console.log('Showplaces = true');
+      }
+      else {
+        this.pserv.showPlaces.next(false);
+        this.fetchNearbyObjects(this.sphrase);  
+      }
     }
 
   fetchNearbyObjects(address : string = '') {
@@ -54,6 +60,8 @@ places : Place[];
   onFocus() {
     if (this.sphrase !=='')
       return;
+      this.pserv.showPlaces.next(true);
+      console.log('Showplaces = true');
     this.fetchNearbyObjects();
   } 
 
@@ -72,6 +80,7 @@ places : Place[];
         console.log(result.data[0]._id);
 
       })
+      this.pserv.showPlaces.next(false);
     }
     if (placeName !== undefined) {
       this.sphrase = placeName

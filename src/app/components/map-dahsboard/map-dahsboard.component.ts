@@ -21,13 +21,8 @@ import { Place } from 'src/app/models/place';
 })
 
 export class MapDahsboardComponent implements OnInit, AfterViewInit {
-  private places: Place[];
   private map: google.maps.Map;
-  private marker: google.maps.Marker[] = [];
-  private infowindow: google.maps.InfoWindow[] = [];
-  private placeId: string;
   @ViewChild('mapWrapper', { static: false }) mapElement: ElementRef;
-  @Output() placeIdEmitter = new EventEmitter();
   constructor(private ps: PlacesServiceService,private  ms : MarkerService) { }
 
   ngAfterViewInit() {
@@ -37,8 +32,4 @@ export class MapDahsboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() { }
 
-  emitMarkerId(id: string) {
-    const page = 1;
-    this.placeIdEmitter.emit({ id, page });
-  }
 }

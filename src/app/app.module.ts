@@ -22,6 +22,7 @@ import {AddPlaceFormComponent}  from './components/add-place-form/add-place-form
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { CommentListComponent } from './components/comment-list/comment-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     AddPlaceFormComponent,
     LoginComponent,
     SignupComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    CommentListComponent
   ],
   imports: [
     BrowserModule,

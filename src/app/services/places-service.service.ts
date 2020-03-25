@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Place } from './../models/place';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/commo
 })
 export class PlacesServiceService {
   placeId: string;
+  public showPlaces = new Subject<boolean>();
   constructor(private http: HttpClient) {
   }
 
@@ -19,6 +20,11 @@ export class PlacesServiceService {
 
   }
 
+  public getLocalPlaces(): Observable<{success : boolean, count : number, data : Place[]}>  {
+    return this.http.get<{success : boolean, 
+      count : number, 
+      data : Place[]}>('http://localhost:3000/api/v1/places');
+  }
 
   public addPlace(place: Place, image : File) {
      let placeData = new FormData();
