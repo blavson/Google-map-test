@@ -7,23 +7,52 @@ const path = require('path')
 
 getTestRequest = async(req, res, next ) => {
   console.log('Get Test Request')
-  const r = await Place.find({ "address" : {"$regex": "pali", "$options": "i"} } )
-  res.send(r)
+  const  lng = 41.709157; 
+  const  lat =44.767054;
+  const radius = 50
+  const vicinity =  radius  /  6378;
+  const plcs = await Place.find({location : {$geoWithin : { $centerSphere :  [ [lat, lng], vicinity] } } } )
+  return res.status(200).json(({
+    success: true,
+    count: plcs.length,
+    data: plcs
+  }))
 }
 
 getPlaces = async (req, res, next) => {
  // let  { placeAddress} = req.params;
+ const  lng = 41.709157; 
+ const  lat =44.767054;
+ const vicinity =  process.env.RADIUS /6378;
 
   try {
     const placeAddress= req.query.address;
 
     //console.log('query address= ' + req.query.address)
     if (placeAddress != undefined || placeAddress !== '') {
-      places = await Place.find({$or : [{ "address" : {"$regex": placeAddress, "$options": "i"} }, 
-                                        {"name" : {"$regex" : placeAddress, "$options" :"i"} }] })
+      places = await Place.find(
+                               {
+                                  $and : [
+                                          { location : {  $geoWithin : 
+                                                          { $centerSphere :  [ [lat, lng], vicinity] } 
+                                                        }  
+                                           }, 
+                                           {  
+                                             $or : [ 
+                                              { "address" : {"$regex": placeAddress, "$options": "i"} }, 
+                                              {"name" : {"$regex" : placeAddress, "$options" :"i"} } ,
+                                               
+                                            ]      
+                                          },
+                                        ],
+                               },
+                               ).sort([ [{"name" : 1}], [{"address" : 1 }]])
+
+
     } else 
-       places = await Place.find();
-       console.log('pl2 = ', places)
+       places = await Place.find({ location : {  $geoWithin :  { $centerSphere :  [ [lat, lng], vicinity] }   }  } );
+    //   places = await Place.find();
+       console.log('gePLaces : ', places);
     return res.status(200).json({
       success: true,
       count: places.length,

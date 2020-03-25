@@ -1,3 +1,4 @@
+import { PlacesServiceService } from 'src/app/services/places-service.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./merge-map-and-comments.component.css']
 })
 export class MergeMapAndCommentsComponent implements OnInit {
-
-  constructor() { }
+  showPlaces = true;
+  constructor(private ps : PlacesServiceService) { }
 
   ngOnInit() {
-    console.log("ON INIT")
+    this.ps.showPlaces.subscribe(result => {
+      console.log('Merge map ', result)
+      this.showPlaces = result;
+    })
   }
 
 }
