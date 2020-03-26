@@ -1,0 +1,11 @@
+#page-content {
+  flex: 0.8 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

@@ -23,6 +23,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CommentListComponent } from './components/comment-list/comment-list.com
     LoginComponent,
     SignupComponent,
     SearchbarComponent,
-    CommentListComponent
+    CommentListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
