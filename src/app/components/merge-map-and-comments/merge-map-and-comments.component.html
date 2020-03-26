@@ -2,11 +2,16 @@
    <div class="col-md-8">
       <app-map-dahsboard ></app-map-dahsboard>
    </div>
+   
    <div class="col-md-4" id="topmargin">
-      <div *ngIf="!showPlaces">
-        <app-comment-list #apl></app-comment-list>
+      <div class="jumbotron jumbotron-fluid bg-dark text-light">
+         <div class="container">
+            <div *ngIf="!showPlaces">
+               <app-comment-list #apl></app-comment-list>
+            </div>
+            <div *ngIf="showPlaces">
+               <app-place-list></app-place-list>   
+            </div>
+         </div>
       </div>
-      <div *ngIf="showPlaces">
-         <app-place-list></app-place-list>   
-    </div>
 </div>

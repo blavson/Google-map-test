@@ -44,7 +44,7 @@ places : Place[];
         let li = document.createElement('li'); 
         li.appendChild(document.createTextNode(place.address ));
         li.setAttribute('href', '#')
-        li.setAttribute('class','list-group-item list-group-item-action list-group-item-secondary');
+        li.setAttribute('class','list-group-item list-group-item-action list-group-item-secondary bg-dark text-light');
         ul.appendChild(li);
       })
       ul.removeAttribute('display')
@@ -69,7 +69,7 @@ places : Place[];
     let placeName =undefined
     const placeObject =event.explicitOriginalTarget
 
-    if (placeObject.className === 'list-group-item list-group-item-action list-group-item-secondary') {
+    if (placeObject.className === 'list-group-item list-group-item-action list-group-item-secondary bg-dark text-light') {
       console.log(placeObject)
       placeName = placeObject.innerText;
       console.log('placename = ', placeName)
