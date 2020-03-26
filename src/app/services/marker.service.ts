@@ -82,6 +82,7 @@ export class MarkerService implements OnInit {
           google.maps.event.addListener(marker, 'click', () => {
             const someid = marker.get('placeId');
            // this.emitMarkerId(someid);
+           this.ps.showPlaces.next(false);
            this.clickSubj.next(someid);
 
             iw.open(map, marker);
