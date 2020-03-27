@@ -13,7 +13,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommentboxComponent } from './components/commentbox/commentbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommentsNavbarComponent } from './components/comments-navbar/comments-navbar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StarRateComponent } from './components/star-rate/star-rate.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
@@ -32,7 +31,6 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     PlaceListComponent,
     CommentboxComponent,
-    CommentsNavbarComponent,
     StarRateComponent,
     PaginationComponent,
     MergeMapAndCommentsComponent,
