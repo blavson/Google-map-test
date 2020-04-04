@@ -23,6 +23,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CustomPipe } from './custompipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SignupComponent,
     SearchbarComponent,
     CommentListComponent,
-    FooterComponent
+    FooterComponent,
+    CustomPipe
   ],
   imports: [
     BrowserModule,
