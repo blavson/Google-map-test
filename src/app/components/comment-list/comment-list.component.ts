@@ -20,7 +20,7 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit() {
       this.result = new Result();
-      this.currentPage=0;
+      this.currentPage=1;
       this.getClickedPlace();
   }
 
@@ -38,7 +38,8 @@ export class CommentListComponent implements OnInit {
   getClickedPlace() {
     this.ms.clickSubj.subscribe(_id => {
       this.markerId = _id;
-      this.cs.getComments(_id,1).subscribe(res => {
+      this.currentPage = 1;
+      this.cs.getComments(_id,this.currentPage).subscribe(res => {
         this.result = res ;
         this.collectionSize = res.count;
         console.log("Col size " +  this.collectionSize);
@@ -49,7 +50,7 @@ export class CommentListComponent implements OnInit {
   getComments(event) {
      this.currentPage = event.currentPage;
      this.markerId = event.m_id;
-     console.log("getComments = " + event, this.markerId);
+     console.log("getComments = " + event.currentPage, this.markerId);
      this.cs.getComments(this.markerId, this.currentPage).subscribe(res => {
         this.result = res;
     })

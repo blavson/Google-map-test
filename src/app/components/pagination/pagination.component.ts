@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output , EventEmitter} from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { MaxLengthValidator } from '@angular/forms';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-pagination',
@@ -20,11 +21,14 @@ export class PaginationComponent implements OnInit {
   ngOnInit() {
     this.currentPage = 0;
     this.noPrevious = true;
-    if (this.collectionSize < 6)
+    if (this.collectionSize < 6) {
       this.noNext = true;
-    else
+      this.noPrevious = true;
+    }
+    else {
        this.noNext = false;  
-    console.log('m_id = ', this.m_id);
+    }
+    console.log('collectionsize = ', Math.floor(this.collectionSize / 6) -1 );
   }
 
   onPageClick(event) {
@@ -33,14 +37,10 @@ export class PaginationComponent implements OnInit {
   }
 
   getPrevious() {
-    if (this.currentPage >= 1) {
-      this.currentPage--;
-      this.noPrevious = false;
-    }
-    else
-      this.noPrevious = true;  
-    if (this.noPrevious)
-      return;
+
+    this.doPageLogic();
+    this.currentPage--;
+
       const someObj : any = {
         m_id : this.m_id,
         currentPage : this.currentPage
@@ -50,17 +50,9 @@ export class PaginationComponent implements OnInit {
   }
 
   getNext() {
-    if (this.noNext)
-      return;
-    this.currentPage++;
-    if (this.currentPage > 0) 
-     this.noPrevious = false;
-    else
-      this.noPrevious = true;
-    if (this.currentPage >= Math.floor(this.collectionSize/ 6))
-      this.noNext = true;
-    else
-      this.noNext = false;    
+
+    this.doPageLogic();  
+    this.currentPage++;  
     const someObj : any = {
       m_id : this.m_id,
       currentPage : this.currentPage
@@ -68,5 +60,15 @@ export class PaginationComponent implements OnInit {
     this.pageNumba.emit(someObj);  
   }
 
+  doPageLogic() {
+    if (this.currentPage > 1)
+       this.noPrevious = false;
+    else
+      this.noPrevious = true;
+    
+    if (this.currentPage <= (this.collectionSize / 6))  
+      this.noNext = false;
+    else this.noNext = true;  
+  }
 
 }

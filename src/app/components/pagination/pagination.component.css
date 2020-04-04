@@ -2,8 +2,9 @@ ngb-pagination {
     text-align:center;
 }
 
-.btn-orange {
+.btn-outline-secondary {
     margin : 0 20px;
+    width: 110px;
     display: inline-block;
     padding : 0 auto;
 }
