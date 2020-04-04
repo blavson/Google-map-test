@@ -52,7 +52,7 @@ getPlaces = async (req, res, next) => {
     } else 
        places = await Place.find({ location : {  $geoWithin :  { $centerSphere :  [ [lat, lng], vicinity] }   }  } );
     //   places = await Place.find();
-       console.log('gePLaces : ', places);
+    //   console.log('gePLaces : ', places);
     return res.status(200).json({
       success: true,
       count: places.length,

@@ -1,6 +1,2 @@
-<ngb-pagination
-[pageSize]="6"
-[(page)]="page"
-[collectionSize]="collectionSize"
-aria-label="Default pagination"
-(click) = "onPageClick($event)"></ngb-pagination>
+<button class="btn btn-outline-danger btn-orange" (click)="getPrevious()" [class.disabled]="noPrevious"><Previous </button>
+<button class="btn btn-outline-danger btn-orange"  (click)="getNext()" [class.disabled]="noNext">Next> </button>

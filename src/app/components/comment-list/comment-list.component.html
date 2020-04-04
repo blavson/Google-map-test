@@ -3,16 +3,16 @@
 </div>
 
 <ng-template #commentsBlock>
-  <span class='total-comments'>Total Comments {{result.count}}  </span>
+  <span class='total-comments'> Comments {{(currentPage + 1) * 6}} / {{collectionSize}}  </span>
     <div *ngFor="let c of result.comments">
-      <app-commentbox [comment]="c"></app-commentbox>
+      <app-commentbox [comment]="c" ></app-commentbox>
     </div>
   <br>
   <hr>
   Col Size : {{collectionSize}}
   page num : {{ page}} 
-  
-  <app-pagination [collectionSize]="collectionSize" [pageSize]="6" [page]="page" (pageNumba)="onPageChange($event)">
+
+  <app-pagination (pageNumba)="getComments($event)" [m_id]="markerId" >
   </app-pagination>
 </ng-template>
 

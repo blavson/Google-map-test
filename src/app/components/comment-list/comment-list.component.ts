@@ -12,21 +12,22 @@ export class CommentListComponent implements OnInit {
 
   markerId: string;
   result : Result ;
-  page : number;
+  currentPage : number;
   collectionSize : number;
-  pageSize : number;
+  perPage : number;
 
   constructor(private cs: CommentsService, private ms : MarkerService) { }
 
   ngOnInit() {
       this.result = new Result();
+      this.currentPage=0;
       this.getClickedPlace();
   }
 
   public receiveId(event) {
       console.log(event);
     this.markerId = event.id;
-    this.page = event.page;
+    this.currentPage = event.page;
     this.cs.getComments(event.id,event.page).subscribe(res => {
         this.result = res ;
         this.collectionSize = res.count;
@@ -36,6 +37,7 @@ export class CommentListComponent implements OnInit {
 
   getClickedPlace() {
     this.ms.clickSubj.subscribe(_id => {
+      this.markerId = _id;
       this.cs.getComments(_id,1).subscribe(res => {
         this.result = res ;
         this.collectionSize = res.count;
@@ -43,10 +45,12 @@ export class CommentListComponent implements OnInit {
     })   
     })
   }
-  onPageChange(event) {
-     this.page = event;
-     console.log("event = " + event);
-    this.cs.getComments(this.markerId, this.page).subscribe(res => {
+
+  getComments(event) {
+     this.currentPage = event.currentPage;
+     this.markerId = event.m_id;
+     console.log("getComments = " + event, this.markerId);
+     this.cs.getComments(this.markerId, this.currentPage).subscribe(res => {
         this.result = res;
     })
 

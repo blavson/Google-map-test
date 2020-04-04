@@ -1,3 +1,9 @@
 ngb-pagination {
-    align:center;
+    text-align:center;
+}
+
+.btn-orange {
+    margin : 0 20px;
+    display: inline-block;
+    padding : 0 auto;
 }

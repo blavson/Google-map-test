@@ -47,7 +47,7 @@ export class MarkerService implements OnInit {
     this.markers.forEach(marker => {
       if (_id === marker.get('placeId')) {
         google.maps.event.trigger(marker, 'click');
-        this.clickSubj.next(_id);
+       // this.clickSubj.next(_id);
         };
     })
   }
@@ -81,10 +81,10 @@ export class MarkerService implements OnInit {
   
           google.maps.event.addListener(marker, 'click', () => {
             const someid = marker.get('placeId');
-           // this.emitMarkerId(someid);
            this.ps.showPlaces.next(false);
            this.clickSubj.next(someid);
 
+         //  console.log('marker ' + someid + ' clicked');
             iw.open(map, marker);
             // window.location.href=`/places/${someid}`;
           });
