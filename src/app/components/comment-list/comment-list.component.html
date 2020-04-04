@@ -3,12 +3,10 @@
 </div>
 
 <ng-template #commentsBlock>
-  <h2>Total Comments {{result.count}} </h2>
-  <div class="row">
-    <div class="col-4" *ngFor="let c of result.comments">
+  <span class='total-comments'>Total Comments {{result.count}}  </span>
+    <div *ngFor="let c of result.comments">
       <app-commentbox [comment]="c"></app-commentbox>
     </div>
-  </div>
   <br>
   <h1>Col Size : {{collectionSize}}</h1>
   <h1>page num : {{ page}} </h1>

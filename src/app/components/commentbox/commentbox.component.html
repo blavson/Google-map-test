@@ -1,8 +1,8 @@
 <div class="card rounded mb-2">
-  <div class="card-header headerbgcolor">
+  <div class="card-header">
     <span>{{comment.userName}}</span> <span></span>
   </div>
-  <div class="card-text p-1"> {{ comment.body}}
+  <div class="card-text p-1"> {{ comment.body | list80}}
     <div class="rating">
       <i *ngFor="let star of numbers" class="fa fa-star" aria-hidden="true"></i>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
+import { CustomPipe } from 'src/app/custompipe';
 
 @Component({
   selector: 'app-commentbox',

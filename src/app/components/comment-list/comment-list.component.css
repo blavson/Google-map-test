@@ -11,3 +11,9 @@
 .filled.bad {
   color: #fcba03;
 }
+
+.total-comments {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 200;
+}
