@@ -13,7 +13,7 @@ getComments = async (req, res, next) => {
                                     comments : []
                                 });
     }
-    const size = 9;
+    const size = 5;
     const skip=size*(page -1);
     const total = await Comment.find({ 'placeId': placeId });
     let query = {};

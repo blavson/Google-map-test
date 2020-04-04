@@ -8,9 +8,11 @@
       <app-commentbox [comment]="c"></app-commentbox>
     </div>
   <br>
-  <h1>Col Size : {{collectionSize}}</h1>
-  <h1>page num : {{ page}} </h1>
-  <app-pagination [collectionSize]="collectionSize" [pageSize]="9" [page]="page" (pageNumba)="onPageChange($event)">
+  <hr>
+  Col Size : {{collectionSize}}
+  page num : {{ page}} 
+  
+  <app-pagination [collectionSize]="collectionSize" [pageSize]="6" [page]="page" (pageNumba)="onPageChange($event)">
   </app-pagination>
 </ng-template>
 
