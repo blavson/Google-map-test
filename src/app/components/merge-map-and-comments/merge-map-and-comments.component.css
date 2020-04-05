@@ -1,4 +1,9 @@
 .jumbotron {
   width : 100%;
-  height: 800px;
+  height: 820px;
+}
+
+.container {
+  overflow-y:scroll;
+  height: 820px;
 }

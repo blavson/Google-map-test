@@ -24,6 +24,7 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CustomPipe } from './custompipe';
+import { PlaceInfoComponent } from './components/place-info/place-info.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CustomPipe } from './custompipe';
     SearchbarComponent,
     CommentListComponent,
     FooterComponent,
-    CustomPipe
+    CustomPipe,
+    PlaceInfoComponent
   ],
   imports: [
     BrowserModule,

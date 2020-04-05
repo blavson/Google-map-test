@@ -6,3 +6,16 @@
   background-color: #959aa1;
   color : white;
   }
+
+  .sort-space {
+    max-width: 100%;
+    height:  60px;
+    display: block;
+    border: 1px solid #959aa1;
+    border-radius: 8px;
+  }
+
+  #sort-select, option {
+    background-color: #2e3131;
+    color : wheat;
+  }

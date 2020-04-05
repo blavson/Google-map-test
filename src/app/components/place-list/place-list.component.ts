@@ -11,7 +11,7 @@ export class PlaceListComponent  implements OnInit{
 private places : Place[];
   constructor(private ps : PlacesServiceService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getPlaces();
   }
 
@@ -19,7 +19,10 @@ private places : Place[];
     this.ps.getPlaces().subscribe(result => {
       if (result.success) {
         this.places = result.data;
-
+        console.log('place list :', this.places);
+      }
+      else {
+        throw Error('nothing compares to you')
       }
     })
   }

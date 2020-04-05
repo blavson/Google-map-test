@@ -11,6 +11,7 @@ export class MergeMapAndCommentsComponent implements OnInit {
   constructor(private ps : PlacesServiceService) { }
 
   ngOnInit() {
+    this.showPlaces = true;
     this.ps.showPlaces.subscribe(result => {
       console.log('Merge map ', result)
       this.showPlaces = result;
