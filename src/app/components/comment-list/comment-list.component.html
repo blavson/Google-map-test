@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="result.count > 0 then commentsBlock  ; else noCommentsBlock"> </div>
+  <div *ngIf="collectionSize then commentsBlock  ; else noCommentsBlock"> </div>
 </div>
 
 <ng-template #commentsBlock>
@@ -8,14 +8,12 @@
       <app-commentbox [comment]="c" ></app-commentbox>
     </div>
   <br>
-  <hr>
-  Col Size : {{collectionSize}}
-  page num : {{ page}} 
 
   <app-pagination (pageNumba)="getComments($event)" [m_id]="markerId" [collectionSize]="collectionSize">
   </app-pagination>
 </ng-template>
 
 <ng-template #noCommentsBlock>
+  <h2> No comments for this place </h2>
 
 </ng-template>
