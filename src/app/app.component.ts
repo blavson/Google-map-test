@@ -8,7 +8,7 @@ declare var $: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gmap-test';
+  title = 'Changali.ge';
 
   constructor() { }
 

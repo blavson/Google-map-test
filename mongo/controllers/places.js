@@ -21,9 +21,11 @@ getTestRequest = async(req, res, next ) => {
 
 getPlaces = async (req, res, next) => {
  // let  { placeAddress} = req.params;
- const  lng = 41.709157; 
- const  lat =44.767054;
+//  const  lng = 41.709157; 
+//  const  lat = 44.767054;
  const vicinity =  process.env.RADIUS /6378;
+ const lat = parseFloat(req.query.lng);
+ const lng = parseFloat(req.query.lat);
 
   try {
     const placeAddress= req.query.address;
@@ -31,24 +33,21 @@ getPlaces = async (req, res, next) => {
     //console.log('query address= ' + req.query.address)
     if (placeAddress != undefined || placeAddress !== '') {
       places = await Place.find(
-                               {
-                                  $and : [
-                                          { location : {  $geoWithin : 
-                                                          { $centerSphere :  [ [lat, lng], vicinity] } 
-                                                        }  
-                                           }, 
-                                           {  
-                                             $or : [ 
-                                              { "address" : {"$regex": placeAddress, "$options": "i"} }, 
-                                              {"name" : {"$regex" : placeAddress, "$options" :"i"} } ,
-                                               
-                                            ]      
-                                          },
-                                        ],
-                               },
-                               ).sort([ [{"name" : 1}], [{"address" : 1 }]])
-
-
+         {
+            $and : [
+              { location : {  $geoWithin : 
+              { $centerSphere :  [ [lat, lng], vicinity] } 
+                           }  
+              }, 
+              {  
+                 $or : [ 
+                   { "address" : {"$regex": placeAddress, "$options": "i"} }, 
+                   {"name" : {"$regex" : placeAddress, "$options" :"i"} } ,
+                        ]      
+              },
+              ],
+          },
+      ).sort([ [{"name" : 1}], [{"address" : 1 }]])
     } else 
        places = await Place.find({ location : {  $geoWithin :  { $centerSphere :  [ [lat, lng], vicinity] }   }  } );
     //   places = await Place.find();

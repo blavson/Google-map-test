@@ -1,3 +1,4 @@
+import { MarkerService } from './../../services/marker.service';
 import { PlacesServiceService } from 'src/app/services/places-service.service';
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Place } from 'src/app/models/place';
@@ -9,10 +10,11 @@ import { Place } from 'src/app/models/place';
 })
 export class PlaceListComponent  implements OnInit{
 private places : Place[];
-  constructor(private ps : PlacesServiceService) {}
+  constructor(private ps : PlacesServiceService, private ms : MarkerService) {}
 
   ngOnInit() {
     this.getPlaces();
+    this.updateList();
   }
 
   getPlaces() {
@@ -25,6 +27,13 @@ private places : Place[];
         throw Error('nothing compares to you')
       }
     })
+  }
+
+  updateList() {
+    this.ms.updatePlaceList.subscribe(obs => {
+       this.getPlaces();
+      })
+
   }
   
 }

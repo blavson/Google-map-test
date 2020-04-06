@@ -21,7 +21,6 @@ getComments = async (req, res, next) => {
     //query.skip=20;
     query.limit = size;
     const comments = await Comment.find({ 'placeId': placeId },{}, query);
-    console.log("getComments nodejs");
     return res.status(200).json({
                                 success : true,
                                 count   :  total.length,

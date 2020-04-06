@@ -1,3 +1,4 @@
+import { LantlngService } from './lantlng.service';
 import { PlacesServiceService } from 'src/app/services/places-service.service';
 import { Injectable, OnInit } from '@angular/core';
 import { Place } from '../models/place';
@@ -11,10 +12,15 @@ export class MarkerService implements OnInit {
   private markers: google.maps.Marker[] = [];
   private places : Place[];
   public  clickSubj = new Subject<string>();
-  public lngLat = new google.maps.LatLng(41.709157, 44.767054);
+  public updatePlaceList = new Subject<boolean>();
+  //public lngLat = new google.maps.LatLng(41.709157, 44.767054);
 
-  constructor(private ps : PlacesServiceService) { }
-  ngOnInit() {}
+
+  constructor(private ps : PlacesServiceService, private lls : LantlngService ) { }
+
+  ngOnInit() {
+    console.log('Nginit ' + this.lls.lngLat);
+  }
 
   getPlaces() {
     return this.ps.getPlaces();
@@ -30,7 +36,7 @@ export class MarkerService implements OnInit {
     
 
     const mapOptions: google.maps.MapOptions = {
-      center: this.lngLat,
+      center: this.lls.lngLat,
       zoom: 16,
       // fullscreenControl: false,
       // mapTypeControl: false,
@@ -39,10 +45,29 @@ export class MarkerService implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true
     };
+
+
     this.map = new google.maps.Map(htmle, mapOptions);
-    this.initMarkers();
+
+    this.map.addListener('dragend', () => {
+      this.lls.lngLat = this.map.getCenter();   
+      this.clearMarkers();
+      this.getMarkers();
+      this.ps.showPlaces.next(true);
+      this.updatePlaceList.next(true);
+      console.log('Update map');
+     });
+
+    this.getMarkers();
   }
   
+  clearMarkers() {
+      for (var i = 0; i < this.markers.length; i++ ) {
+        this.markers[i].setMap(null);
+      }
+      this.markers.length = 0;
+    }
+
   simulateClick(_id : string) {
     this.markers.forEach(marker => {
       if (_id === marker.get('placeId')) {
@@ -52,10 +77,10 @@ export class MarkerService implements OnInit {
     })
   }
 
-  private initMarkers() {
+  private getMarkers() {
     const map = this.map
     
-      this.getPlaces().subscribe(data => {
+      this.getPlaces().subscribe((data)=>  {
         this.places = data.data;
 
         let index = 0;
@@ -88,6 +113,7 @@ export class MarkerService implements OnInit {
             iw.open(map, marker);
             // window.location.href=`/places/${someid}`;
           });
+
   
           // Event that closes the Info Window with a click on the map
           google.maps.event.addListener(map, 'click', () => {

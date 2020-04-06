@@ -1,7 +1,9 @@
+import { MarkerService } from './marker.service';
 import { Observable, Subject } from 'rxjs';
 import { Place } from './../models/place';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/common/http';
+import { LantlngService } from './lantlng.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,23 +11,25 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpParams } from '@angular/commo
 export class PlacesServiceService {
   placeId: string;
   public showPlaces = new Subject<boolean>();
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private lls : LantlngService) {
   }
 
   public getPlaces(placeAddress : string=''): Observable<{success : boolean, count : number, data : Place[]}> {
-    const params = new HttpParams().append('address', placeAddress);
+    const params = new HttpParams().append('address', placeAddress)
+                .append('lng',this.lls.lngLat.lng().toString())
+                .append('lat',this.lls.lngLat.lat().toString() );
     return this.http.get<{success : boolean, 
                           count : number, 
                           data : Place[]}>('http://localhost:3000/api/v1/places', {params : params});
 
   }
-
+/*
   public getLocalPlaces(): Observable<{success : boolean, count : number, data : Place[]}>  {
     return this.http.get<{success : boolean, 
       count : number, 
       data : Place[]}>('http://localhost:3000/api/v1/places');
   }
-
+*/
   public addPlace(place: Place, image : File) {
      let placeData = new FormData();
 

@@ -30,7 +30,7 @@ places : Place[];
       }
     }
 
-  fetchNearbyObjects(address : string = '') {
+  public fetchNearbyObjects(address : string = '') {
     this.pserv.getPlaces(address).subscribe(res => {
       const result = res;
       if (res.success) {
