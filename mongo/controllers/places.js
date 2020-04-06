@@ -24,14 +24,21 @@ getPlaces = async (req, res, next) => {
 //  const  lng = 41.709157; 
 //  const  lat = 44.767054;
  const vicinity =  process.env.RADIUS /6378;
- const lat = parseFloat(req.query.lng);
- const lng = parseFloat(req.query.lat);
+ let  lat = parseFloat(req.query.lng);
+ let  lng = parseFloat(req.query.lat);
+ const placeAddress= req.query.address;
+
+ if (isNaN(lat) && isNaN(lng)) {
+     lng = 41.709157; 
+     lat = 44.767054;
+ }
 
   try {
-    const placeAddress= req.query.address;
-
     //console.log('query address= ' + req.query.address)
-    if (placeAddress != undefined || placeAddress !== '') {
+    if ( (placeAddress === undefined )|| (placeAddress === '') || isNaN(placeAddress)) {
+      places = await Place.find({ location : {  $geoWithin :  { $centerSphere :  [ [lat, lng], vicinity] }   }  } );
+    } else {
+      console.log('PlaceAddress = '  + placeAddress)
       places = await Place.find(
          {
             $and : [
@@ -48,8 +55,7 @@ getPlaces = async (req, res, next) => {
               ],
           },
       ).sort([ [{"name" : 1}], [{"address" : 1 }]])
-    } else 
-       places = await Place.find({ location : {  $geoWithin :  { $centerSphere :  [ [lat, lng], vicinity] }   }  } );
+    } 
     //   places = await Place.find();
     //   console.log('gePLaces : ', places);
     return res.status(200).json({

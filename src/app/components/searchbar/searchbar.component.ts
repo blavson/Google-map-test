@@ -89,7 +89,4 @@ places : Place[];
     ul.hidden=true;
   } 
 
-  lockOnItem($event) {
-    console.log('lockon')
-  }
 }

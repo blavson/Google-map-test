@@ -9,7 +9,7 @@ import { Place } from 'src/app/models/place';
   styleUrls: ['./place-list.component.css']
 })
 export class PlaceListComponent  implements OnInit{
-private places : Place[];
+public places : Place[];
   constructor(private ps : PlacesServiceService, private ms : MarkerService) {}
 
   ngOnInit() {

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit,OnDestroy {
 private authListenerSubs : Subscription;
-private userIsAuthenticated = false ;
+public userIsAuthenticated = false ;
 private ttl :any ;
   constructor(private auth: AuthService) { }
 
