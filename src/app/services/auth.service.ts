@@ -34,14 +34,14 @@ private authStatusListener =  new Subject<boolean>()
 
   createUser(email : string, password : string ) {
     const user : User ={ email,password};
-   return this.http.post('http://localhost:3000/api/v1/users/signup', user).subscribe(result => {
+   return this.http.post('/api/v1/users/signup', user).subscribe(result => {
      console.log('create user');
    })
   }
 
   async loginUser (email : string, password : string) {
     const user : User = {email, password}
-      await this.http.post<any>('http://localhost:3000/api/v1/users/login',user).subscribe(result => {
+      await this.http.post<any>('/api/v1/users/login',user).subscribe(result => {
         if (result.success) {
           if (result.token) {
               console.log('Expires in ' + result.expiresIn)

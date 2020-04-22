@@ -20,14 +20,14 @@ export class PlacesServiceService {
                 .append('lat',this.lls.lngLat.lat().toString() );
     return this.http.get<{success : boolean, 
                           count : number, 
-                          data : Place[]}>('http://localhost:3000/api/v1/places', {params : params});
+                          data : Place[]}>('/api/v1/places', {params : params});
 
   }
 /*
   public getLocalPlaces(): Observable<{success : boolean, count : number, data : Place[]}>  {
     return this.http.get<{success : boolean, 
       count : number, 
-      data : Place[]}>('http://localhost:3000/api/v1/places');
+      data : Place[]}>('/api/v1/places');
   }
 */
   public addPlace(place: Place, image : File) {
@@ -41,7 +41,7 @@ export class PlacesServiceService {
     if (image !== null)
        placeData.append('myimage', image, image.name);
 
-     this.http.post('http://localhost:3000/api/v1/places', placeData).subscribe(result => {
+     this.http.post('/api/v1/places', placeData).subscribe(result => {
         console.log(result);
 //         const place:Place = result as Place;
    //      console.log("addPlace function in service " + place);
@@ -49,7 +49,7 @@ export class PlacesServiceService {
   }
 
   public getTestRequest() {
-    this.http.get('http://localhost:3000/api/v1/places/test').subscribe(result =>{
+    this.http.get('/api/v1/places/test').subscribe(result =>{
       console.log(result);
     })
   }
