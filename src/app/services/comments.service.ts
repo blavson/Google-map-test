@@ -13,7 +13,7 @@ export class CommentsService {
 
   getComments(placeId: string, page : number): Observable<Result> {
     const url = '?id=' + placeId + '&page=' + page;
-    return this.http.get<Result>('http://localhost:3000/api/v1/comments' + url);
+    return this.http.get<Result>('/api/v1/comments' + url);
   }
 
 
