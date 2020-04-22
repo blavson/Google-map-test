@@ -46,12 +46,12 @@ placeSchema.pre('save', async function (next) {
   this.infoWindow = "<div id='iw-container'><div class='iw-title'>" + this.name + '</div>' +
   "<div class='iw-content'><div class='iw-subTitle'>" + this.address + '</div>' +
   "<p>" + this.description + "</p>" +
-  `<img src="http://localhost:3000/static/${this.image}"  width="300" height="161">`+
+  `<img src="/static/${this.image}"  width="300" height="161">`+
   "<div class='iw-subTitle'>Contacts</div> <p><br>" +
   "Some contacts here" + "</p></div>" +
   " <div class='iw-bottom-gradient'></div> </div>";
   
-  //this.infoWindow = `<img src='localhost:3000/static/${this.image}'>`;
+  //this.infoWindow = `<img src='/static/${this.image}'>`;
   console.log('PREEEE', this);
 
 })
